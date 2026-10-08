@@ -25,11 +25,15 @@ Every package, service, script, and visual effect must have a documented purpose
 
 ## Current Phase
 
-Phase 0 — Project Foundation is being planned. The project architecture and initial Majula visual baseline are approved; no system configuration has been deployed from this repository yet.
+Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages is planned next, but no Phase 1 package installation or removal has started. No system configuration has been deployed from this repository.
 
 ### Completed
 
 - Defined the project architecture, safety rules, deployment model, update experience, and phased roadmap.
+- Added the mandatory repository contract, standalone roadmap, and purposeful project structure.
+- Recorded a sanitized hardware, package, service, and graphical-session baseline for the target notebook.
+- Documented backup and recovery prerequisites for later system-facing phases.
+- Added a read-only Phase 0 verifier with isolated behavioral tests.
 - Created the Majula semantic palette with documented contrast and component usage.
 - Approved compact geometry for the target display: 4-pixel gaps, 1-pixel inactive borders, 2-pixel focused borders, 24-pixel application title bars, and a 28-pixel Waybar.
 - Created and inspected the theme preview at the notebook's native 1366x768 resolution.
@@ -38,20 +42,25 @@ Phase 0 — Project Foundation is being planned. The project architecture and in
 
 | Phase | Focus | Status |
 |---:|---|---|
-| 0 | Project contract, repository structure, sanitized baseline, and recovery prerequisites | Planning |
+| 0 | Project contract, repository structure, sanitized baseline, and recovery prerequisites | Complete |
 | 1 | Base system and package manifests | Planned |
-| 2 | Hyprland core and keybindings | Planned |
-| 3 | Desktop essentials | Planned |
-| 4 | Majula visual system implementation | Planned |
-| 5 | Safe update experience | Planned |
-| 6 | Development environment | Planned |
-| 7 | Bootstrap and recovery automation | Planned |
+| 2 | Hyprland core and keybindings | Not started |
+| 3 | Desktop essentials | Not started |
+| 4 | Majula visual system implementation | Not started |
+| 5 | Safe update experience | Not started |
+| 6 | Development environment | Not started |
+| 7 | Bootstrap and recovery automation | Not started |
 
 Each phase is planned and verified before the next one begins. The future portability milestone starts only after the notebook configuration is stable.
 
 ## Documentation
 
+- [Repository contract](AGENTS.md)
+- [Project roadmap](ROADMAP.md)
+- [Sanitized system baseline](docs/baseline/README.md)
+- [Maintenance and recovery guide](docs/maintenance.md)
 - [Project design and full roadmap](docs/superpowers/specs/2026-10-08-simple-custom-arch-design.md)
+- [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)
 - [Majula theme reference](docs/theme.md)
 - [Majula theme preview](docs/assets/theme-preview.svg)
 - [Theme preview implementation plan](docs/superpowers/plans/2026-10-08-majula-theme-preview.md)
@@ -67,4 +76,4 @@ Each phase is planned and verified before the next one begins. The future portab
 
 ## Next Step
 
-Complete the Phase 0 implementation plan, then create the project contract, roadmap, directory structure, sanitized system baseline, and recovery documentation without changing the running system configuration.
+Plan Phase 1 by reviewing the observed package set and assigning a documented purpose to each desired package. Do not install or remove packages until that plan is reviewed and approved.

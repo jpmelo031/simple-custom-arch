@@ -4,9 +4,9 @@ This roadmap turns the approved design into ordered, verifiable phases. Only one
 
 ## Phase Sequence
 
-### Phase 0 — Project Foundation — Planned
+### Phase 0 — Project Foundation — Complete
 
-**Status:** Planned
+**Status:** Complete
 
 **Goal:** Establish a safe, reviewable repository foundation before changing the running system.
 
@@ -28,9 +28,11 @@ This roadmap turns the approved design into ordered, verifiable phases. Only one
 - The user-approved palette remains unchanged.
 - The Phase 0 verifier passes without modifying the system.
 
-### Phase 1 — Base System and Packages — Not started
+### Phase 1 — Base System and Packages — Planned
 
-**Status:** Not started
+**Status:** Planned
+
+No Phase 1 package installation or removal has started.
 
 **Goal:** Define and validate the smallest dependable package set for the notebook.
 
