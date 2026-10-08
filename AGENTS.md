@@ -88,9 +88,13 @@ Do not skip a step. Phase 0 is repository-only work and must not alter the runni
 - `packages/README.md` owns package-selection policy and foreign-package exceptions.
 - The current design spec and implementation plan live under `docs/superpowers/`.
 
-## Current Phase
+## Phase Status
 
-Active phase: **Phase 0 — Project Foundation**.
+Completed phase: **Phase 0 — Project Foundation**.
+
+Next planned phase: **Phase 1 — Base System and Packages**.
+
+Phase 1 remains planning-only until its implementation plan is reviewed and approved. Do not install or remove packages while preparing that plan.
 
 - [Design specification](docs/superpowers/specs/2026-10-08-simple-custom-arch-design.md)
 - [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)

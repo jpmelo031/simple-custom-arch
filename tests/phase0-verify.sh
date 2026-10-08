@@ -20,6 +20,14 @@ if [[ ! -x "$verifier" ]]; then
   fail "scripts/verify must exist and be executable"
 fi
 
+if ! rg -q '^Completed phase: \*\*Phase 0 — Project Foundation\*\*\.$' "$project_root/AGENTS.md"; then
+  fail "AGENTS.md must identify Phase 0 as complete"
+fi
+
+if ! rg -q '^Next planned phase: \*\*Phase 1 — Base System and Packages\*\*\.$' "$project_root/AGENTS.md"; then
+  fail "AGENTS.md must identify Phase 1 as planned"
+fi
+
 new_fixture() {
   local fixture
   fixture="$(mktemp -d "$fixture_root/fixture.XXXXXX")"
