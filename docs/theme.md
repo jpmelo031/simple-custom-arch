@@ -4,6 +4,19 @@
 
 Majula is a low-glare visual system built from dark stone, deep sea tones, aged ivory, and restrained sunset light. It takes atmosphere from Majula without copying game artwork, logos, or interface elements. The result should feel quiet and warm at night while keeping controls and status changes easy to read on a 1366x768 display.
 
+## Compact Geometry
+
+| Element | Size | Purpose |
+|---|---:|---|
+| Outer screen gap | `4 px` | Preserve a visible frame without sacrificing useful space. |
+| Tiled window gap | `4 px` | Separate windows while keeping the layout dense. |
+| Inactive border | `1 px` | Mark window boundaries with minimal visual weight. |
+| Focused border | `2 px` | Show focus without reducing the usable content area. |
+| Application title bar | `24 px` maximum | Keep window identity and controls compact. |
+| Waybar | `28 px` | Retain readable system status at the approved font size. |
+
+System-wide font sizes remain unchanged. Applications should hide redundant native title bars when doing so preserves clear window state and controls.
+
 ## Palette
 
 | Token | Value | Primary use | Text contrast |
@@ -42,6 +55,7 @@ The preview is rendered at the notebook's native 1366x768 resolution. It is a vi
 
 - Treat these semantic tokens as the source of truth for project-owned interfaces.
 - Keep `accent` and `ember` on small selections, borders, and progress elements instead of large surfaces.
+- Follow the compact geometry table instead of adding application-specific padding.
 - Pair information, success, and danger colors with a label or symbol so meaning never depends on color alone.
 - Use application-specific colors only when they map clearly to a semantic token.
 - Keep the preview and generated themes free of external assets and copied game material.

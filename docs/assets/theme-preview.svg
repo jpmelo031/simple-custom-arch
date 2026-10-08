@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1366" height="768" viewBox="0 0 1366 768" role="img" aria-labelledby="title description">
   <title id="title">Majula theme preview</title>
-  <desc id="description">A 1366 by 768 desktop mockup showing the Majula palette across Waybar, VS Code, a centered Rofi update dialog, Kitty update output, Dunst, and labeled color swatches.</desc>
+  <desc id="description">A compact 1366 by 768 desktop mockup showing the Majula palette with four-pixel gaps, slim application title bars, Waybar, VS Code, a centered Rofi update dialog, Kitty update output, Dunst, and labeled color swatches.</desc>
   <style>
     .background { fill: #0E1114; }
     .surface { fill: #171C20; }
@@ -33,96 +33,100 @@
 
   <!-- Desktop and Waybar -->
   <g id="desktop" class="ui">
-    <rect class="panel" x="20" y="18" width="970" height="28" rx="6"/>
-    <text class="accent label" x="32" y="37">Desktop</text>
-    <rect class="accent" x="112" y="24" width="24" height="16" rx="4"/>
-    <text class="background sm" x="120" y="36">1</text>
-    <text class="muted sm" x="148" y="36">2</text>
-    <text class="muted sm" x="171" y="36">3</text>
-    <text class="text sm" x="471" y="36">THU 22:14</text>
-    <text class="info sm" x="785" y="36">NET</text>
-    <text class="text sm" x="824" y="36">Wi-Fi</text>
-    <text class="muted sm" x="869" y="36">VOL 32%</text>
-    <text class="success sm" x="935" y="36">BAT 86%</text>
+    <rect class="panel" x="4" y="4" width="996" height="28" rx="5"/>
+    <text class="accent label" x="16" y="23">Desktop</text>
+    <rect class="accent" x="96" y="10" width="24" height="16" rx="4"/>
+    <text class="background sm" x="104" y="22">1</text>
+    <text class="muted sm" x="132" y="22">2</text>
+    <text class="muted sm" x="155" y="22">3</text>
+    <text class="text sm" x="483" y="22">THU 22:14</text>
+    <text class="info sm" x="795" y="22">NET</text>
+    <text class="text sm" x="834" y="22">Wi-Fi</text>
+    <text class="muted sm" x="879" y="22">VOL 32%</text>
+    <text class="success sm" x="945" y="22">BAT 86%</text>
   </g>
 
   <!-- VS Code window -->
   <g id="vscode" class="ui">
-    <rect class="panel" x="20" y="60" width="970" height="420" rx="8"/>
-    <path class="focus-rule" d="M28 61 H982"/>
-    <rect class="elevated" x="21" y="61" width="968" height="31" rx="7"/>
-    <circle class="danger" cx="37" cy="76" r="4"/>
-    <circle class="accent" cx="51" cy="76" r="4"/>
-    <circle class="success" cx="65" cy="76" r="4"/>
-    <text class="text label" x="82" y="81">VS Code</text>
-    <text class="muted sm" x="455" y="80">simple-custom-arch — theme.md</text>
+    <rect class="panel" x="4" y="36" width="996" height="452" rx="6"/>
+    <path class="focus-rule" d="M10 37 H994"/>
+    <rect class="elevated" x="5" y="37" width="994" height="24" rx="5"/>
+    <circle class="danger" cx="19" cy="49" r="3.5"/>
+    <circle class="accent" cx="32" cy="49" r="3.5"/>
+    <circle class="success" cx="45" cy="49" r="3.5"/>
+    <text class="text label" x="60" y="54">VS Code</text>
+    <text class="muted sm" x="463" y="53">simple-custom-arch — theme.md</text>
 
-    <rect class="surface" x="21" y="92" width="43" height="387"/>
-    <rect class="accent" x="21" y="105" width="2" height="29"/>
-    <text class="text title" x="37" y="125">◇</text>
-    <text class="muted title" x="37" y="163">⌕</text>
-    <text class="muted title" x="37" y="201">⑂</text>
-    <text class="muted title" x="37" y="239">□</text>
-    <text class="muted title" x="37" y="451">⚙</text>
+    <rect class="surface" x="5" y="61" width="43" height="426"/>
+    <rect class="accent" x="5" y="74" width="2" height="29"/>
+    <text class="text title" x="21" y="94">◇</text>
+    <text class="muted title" x="21" y="132">⌕</text>
+    <text class="muted title" x="21" y="170">⑂</text>
+    <text class="muted title" x="21" y="208">□</text>
+    <text class="muted title" x="21" y="459">⚙</text>
 
-    <rect class="surface" x="64" y="92" width="190" height="387"/>
-    <line class="rule" x1="254" y1="92" x2="254" y2="479"/>
-    <text class="muted xs" x="77" y="112">EXPLORER</text>
-    <text class="text sm" x="77" y="136">⌄ SIMPLE-CUSTOM-ARCH</text>
-    <text class="muted sm" x="89" y="160">⌄ docs</text>
-    <rect class="elevated" x="65" y="169" width="188" height="25"/>
-    <text class="accent sm" x="105" y="186">theme.md</text>
-    <text class="muted sm" x="89" y="211">› config</text>
-    <text class="muted sm" x="89" y="233">› packages</text>
-    <text class="muted sm" x="89" y="255">› scripts</text>
-    <text class="muted sm" x="89" y="277">README.md</text>
+    <rect class="surface" x="48" y="61" width="196" height="426"/>
+    <line class="rule" x1="244" y1="61" x2="244" y2="487"/>
+    <text class="muted xs" x="61" y="81">EXPLORER</text>
+    <text class="text sm" x="61" y="105">⌄ SIMPLE-CUSTOM-ARCH</text>
+    <text class="muted sm" x="73" y="129">⌄ docs</text>
+    <rect class="elevated" x="49" y="138" width="194" height="25"/>
+    <text class="accent sm" x="89" y="155">theme.md</text>
+    <text class="muted sm" x="73" y="180">› config</text>
+    <text class="muted sm" x="73" y="202">› packages</text>
+    <text class="muted sm" x="73" y="224">› scripts</text>
+    <text class="muted sm" x="73" y="246">README.md</text>
 
-    <rect class="background" x="254" y="92" width="735" height="273"/>
-    <rect class="elevated" x="254" y="92" width="147" height="30"/>
-    <rect class="accent" x="254" y="120" width="147" height="2"/>
-    <text class="text sm" x="271" y="111">theme.md</text>
-    <text class="muted sm" x="413" y="111">README.md</text>
-    <line class="rule" x1="254" y1="122" x2="989" y2="122"/>
+    <rect class="background" x="244" y="61" width="755" height="303"/>
+    <rect class="elevated" x="244" y="61" width="147" height="28"/>
+    <rect class="accent" x="244" y="87" width="147" height="2"/>
+    <text class="text sm" x="261" y="80">theme.md</text>
+    <text class="muted sm" x="403" y="80">README.md</text>
+    <line class="rule" x1="244" y1="89" x2="999" y2="89"/>
 
     <g class="code body">
-      <text class="border" x="272" y="148">1</text>
-      <text class="accent" x="300" y="148"># Majula Theme</text>
-      <text class="border" x="272" y="174">2</text>
-      <text class="muted" x="300" y="174">A calm desktop for late-night work.</text>
-      <text class="border" x="272" y="209">4</text>
-      <text class="info" x="300" y="209">[palette]</text>
-      <text class="text" x="375" y="209">background</text>
-      <text class="ember" x="468" y="209">=</text>
-      <text class="success" x="487" y="209">"#0E1114"</text>
-      <text class="border" x="272" y="234">5</text>
-      <text class="text" x="375" y="234">surface</text>
-      <text class="ember" x="447" y="234">=</text>
-      <text class="success" x="466" y="234">"#171C20"</text>
-      <text class="border" x="272" y="259">6</text>
-      <text class="text" x="375" y="259">accent</text>
-      <text class="ember" x="438" y="259">=</text>
-      <text class="success" x="457" y="259">"#D1A35C"</text>
-      <text class="border" x="272" y="294">8</text>
-      <text class="info" x="300" y="294">[layout]</text>
-      <text class="muted" x="375" y="294"># compact at 1366x768</text>
-      <text class="border" x="272" y="319">9</text>
-      <text class="text" x="375" y="319">gaps</text>
-      <text class="ember" x="420" y="319">=</text>
-      <text class="accent" x="439" y="319">8</text>
+      <text class="border" x="264" y="119">1</text>
+      <text class="accent" x="292" y="119"># Majula Theme</text>
+      <text class="border" x="264" y="145">2</text>
+      <text class="muted" x="292" y="145">A calm desktop for late-night work.</text>
+      <text class="border" x="264" y="180">4</text>
+      <text class="info" x="292" y="180">[palette]</text>
+      <text class="text" x="367" y="180">background</text>
+      <text class="ember" x="460" y="180">=</text>
+      <text class="success" x="479" y="180">"#0E1114"</text>
+      <text class="border" x="264" y="205">5</text>
+      <text class="text" x="367" y="205">surface</text>
+      <text class="ember" x="439" y="205">=</text>
+      <text class="success" x="458" y="205">"#171C20"</text>
+      <text class="border" x="264" y="230">6</text>
+      <text class="text" x="367" y="230">accent</text>
+      <text class="ember" x="430" y="230">=</text>
+      <text class="success" x="449" y="230">"#D1A35C"</text>
+      <text class="border" x="264" y="265">8</text>
+      <text class="info" x="292" y="265">[layout]</text>
+      <text class="muted" x="367" y="265"># compact at 1366x768</text>
+      <text class="border" x="264" y="290">9</text>
+      <text class="text" x="367" y="290">gaps</text>
+      <text class="ember" x="412" y="290">=</text>
+      <text class="accent" x="431" y="290">6</text>
+      <text class="border" x="264" y="315">10</text>
+      <text class="text" x="367" y="315">titlebar</text>
+      <text class="ember" x="439" y="315">=</text>
+      <text class="accent" x="458" y="315">24</text>
     </g>
 
-    <rect class="surface" x="254" y="365" width="735" height="114"/>
-    <line class="rule" x1="254" y1="365" x2="989" y2="365"/>
-    <text class="text xs" x="272" y="386">PROBLEMS</text>
-    <text class="accent xs" x="346" y="386">TERMINAL</text>
-    <rect class="accent" x="344" y="393" width="52" height="2"/>
+    <rect class="surface" x="244" y="364" width="755" height="123"/>
+    <line class="rule" x1="244" y1="364" x2="999" y2="364"/>
+    <text class="text xs" x="262" y="385">PROBLEMS</text>
+    <text class="accent xs" x="336" y="385">TERMINAL</text>
+    <rect class="accent" x="334" y="392" width="52" height="2"/>
     <g class="code sm">
-      <text class="muted" x="272" y="417">~/Projects/simple-custom-arch</text>
-      <text class="accent" x="456" y="417">$</text>
-      <text class="text" x="470" y="417">git status --short</text>
-      <text class="success" x="272" y="440">[ok]</text>
-      <text class="text" x="307" y="440">working tree clean</text>
-      <text class="muted" x="272" y="462">ready for the next phase</text>
+      <text class="muted" x="262" y="416">~/Projects/simple-custom-arch</text>
+      <text class="accent" x="446" y="416">$</text>
+      <text class="text" x="460" y="416">git status --short</text>
+      <text class="success" x="262" y="439">[ok]</text>
+      <text class="text" x="297" y="439">working tree clean</text>
+      <text class="muted" x="262" y="462">ready for the next phase</text>
     </g>
   </g>
 
@@ -150,133 +154,133 @@
 
   <!-- Kitty update terminal -->
   <g id="kitty" class="ui">
-    <rect class="panel" x="20" y="494" width="620" height="254" rx="8"/>
-    <rect class="elevated" x="21" y="495" width="618" height="31" rx="7"/>
-    <circle class="danger" cx="37" cy="510" r="4"/>
-    <circle class="accent" cx="51" cy="510" r="4"/>
-    <circle class="success" cx="65" cy="510" r="4"/>
-    <text class="text label" x="82" y="515">Kitty</text>
-    <text class="muted sm" x="279" y="515">system update — simple-custom-arch</text>
+    <rect class="panel" x="4" y="492" width="648" height="272" rx="6"/>
+    <rect class="elevated" x="5" y="493" width="646" height="24" rx="5"/>
+    <circle class="danger" cx="19" cy="505" r="3.5"/>
+    <circle class="accent" cx="32" cy="505" r="3.5"/>
+    <circle class="success" cx="45" cy="505" r="3.5"/>
+    <text class="text label" x="60" y="510">Kitty</text>
+    <text class="muted sm" x="281" y="509">system update — simple-custom-arch</text>
     <g class="code body">
-      <text class="accent" x="40" y="553">$</text>
-      <text class="text" x="56" y="553">Update summary</text>
-      <text class="muted" x="40" y="580">official</text>
-      <text class="text" x="114" y="580">linux  git  kitty  code</text>
-      <text class="muted" x="40" y="603">aur</text>
-      <text class="text" x="114" y="603">zen-browser-bin  visual-studio-code-bin</text>
-      <text class="info" x="40" y="630">[i]</text>
-      <text class="text" x="72" y="630">Checking Arch news and package signatures...</text>
-      <text class="ember" x="40" y="657">[42%]</text>
-      <text class="text" x="86" y="657">Downloading packages</text>
-      <rect class="border" x="242" y="648" width="275" height="10" rx="5"/>
-      <rect class="ember" x="242" y="648" width="116" height="10" rx="5"/>
-      <text class="success" x="40" y="684">[ok]</text>
-      <text class="text" x="79" y="684">Snapshot and keyring checks passed</text>
-      <text class="danger" x="40" y="711">[!]</text>
-      <text class="text" x="72" y="711">Failure example: power action blocked</text>
-      <text class="muted" x="40" y="734">Log: ~/.local/state/simple-custom-arch/update/</text>
+      <text class="accent" x="26" y="542">$</text>
+      <text class="text" x="42" y="542">Update summary</text>
+      <text class="muted" x="26" y="569">official</text>
+      <text class="text" x="100" y="569">linux  git  kitty  code</text>
+      <text class="muted" x="26" y="592">aur</text>
+      <text class="text" x="100" y="592">zen-browser-bin  visual-studio-code-bin</text>
+      <text class="info" x="26" y="621">[i]</text>
+      <text class="text" x="58" y="621">Checking Arch news and package signatures...</text>
+      <text class="ember" x="26" y="650">[42%]</text>
+      <text class="text" x="72" y="650">Downloading packages</text>
+      <rect class="border" x="228" y="641" width="289" height="10" rx="5"/>
+      <rect class="ember" x="228" y="641" width="121" height="10" rx="5"/>
+      <text class="success" x="26" y="679">[ok]</text>
+      <text class="text" x="65" y="679">Snapshot and keyring checks passed</text>
+      <text class="danger" x="26" y="708">[!]</text>
+      <text class="text" x="58" y="708">Failure example: power action blocked</text>
+      <text class="muted" x="26" y="737">Log: ~/.local/state/simple-custom-arch/update/</text>
     </g>
   </g>
 
   <!-- Dunst notification and desktop notes -->
   <g id="dunst" class="ui">
-    <rect class="raised" x="656" y="494" width="334" height="110" rx="8"/>
-    <rect class="info" x="656" y="494" width="4" height="110" rx="2"/>
-    <circle class="info" cx="684" cy="529" r="13"/>
-    <text class="background label" x="681" y="534">i</text>
-    <text class="info label" x="710" y="515">Dunst</text>
-    <text class="text label" x="710" y="538">Updates available</text>
-    <text class="muted body" x="710" y="559">14 packages are ready.</text>
-    <text class="muted sm" x="710" y="580">Open the menu to review them.</text>
+    <rect class="raised" x="656" y="492" width="344" height="112" rx="6"/>
+    <rect class="info" x="656" y="492" width="4" height="112" rx="2"/>
+    <circle class="info" cx="686" cy="527" r="13"/>
+    <text class="background label" x="683" y="532">i</text>
+    <text class="info label" x="712" y="513">Dunst</text>
+    <text class="text label" x="712" y="536">Updates available</text>
+    <text class="muted body" x="712" y="557">14 packages are ready.</text>
+    <text class="muted sm" x="712" y="578">Open the menu to review them.</text>
 
-    <rect class="panel" x="656" y="618" width="334" height="130" rx="8"/>
-    <text class="accent label" x="676" y="644">Majula at 1366×768</text>
-    <text class="text body" x="676" y="670">Compact controls, clear focus, low glare.</text>
-    <text class="muted sm" x="676" y="694">Warm accents stay small. Status colors</text>
-    <text class="muted sm" x="676" y="713">always include words or symbols.</text>
-    <line class="rule" x1="676" y1="728" x2="970" y2="728"/>
-    <circle class="accent" cx="686" cy="738" r="4"/>
-    <circle class="ember" cx="702" cy="738" r="4"/>
-    <circle class="info" cx="718" cy="738" r="4"/>
-    <circle class="success" cx="734" cy="738" r="4"/>
-    <circle class="danger" cx="750" cy="738" r="4"/>
+    <rect class="panel" x="656" y="608" width="344" height="156" rx="6"/>
+    <text class="accent label" x="678" y="638">Majula at 1366×768</text>
+    <text class="text body" x="678" y="666">Compact controls, clear focus, low glare.</text>
+    <text class="muted sm" x="678" y="692">4 px gaps · 24 px app bars · fonts unchanged</text>
+    <text class="muted sm" x="678" y="713">Status colors always include words or symbols.</text>
+    <line class="rule" x1="678" y1="733" x2="980" y2="733"/>
+    <circle class="accent" cx="688" cy="747" r="4"/>
+    <circle class="ember" cx="704" cy="747" r="4"/>
+    <circle class="info" cx="720" cy="747" r="4"/>
+    <circle class="success" cx="736" cy="747" r="4"/>
+    <circle class="danger" cx="752" cy="747" r="4"/>
   </g>
 
   <!-- Palette -->
   <g id="palette" class="ui">
-    <rect class="panel" x="1006" y="18" width="340" height="730" rx="8"/>
-    <text class="accent title" x="1026" y="44">Palette</text>
-    <text class="muted sm" x="1026" y="63">Semantic tokens · Majula</text>
+    <rect class="panel" x="1004" y="4" width="358" height="760" rx="6"/>
+    <text class="accent title" x="1022" y="30">Palette</text>
+    <text class="muted sm" x="1022" y="49">Semantic tokens · Majula</text>
 
-    <g transform="translate(1026 80)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 66)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="background" x="10" y="8" width="32" height="32" rx="5" stroke="#465056"/>
       <text class="text swatch-name" x="54" y="21">background</text>
       <text class="muted code swatch-value" x="54" y="38">#0E1114 · desktop</text>
     </g>
-    <g transform="translate(1026 134)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 120)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="surface" x="10" y="8" width="32" height="32" rx="5" stroke="#465056"/>
       <text class="text swatch-name" x="54" y="21">surface</text>
       <text class="muted code swatch-value" x="54" y="38">#171C20 · panels</text>
     </g>
-    <g transform="translate(1026 188)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 174)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="elevated" x="10" y="8" width="32" height="32" rx="5" stroke="#465056"/>
       <text class="text swatch-name" x="54" y="21">elevated</text>
       <text class="muted code swatch-value" x="54" y="38">#20272C · dialogs</text>
     </g>
-    <g transform="translate(1026 242)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 228)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="border" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">border</text>
       <text class="muted code swatch-value" x="54" y="38">#465056 · dividers</text>
     </g>
-    <g transform="translate(1026 296)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 282)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="text" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">text</text>
       <text class="muted code swatch-value" x="54" y="38">#DDD6C6 · primary</text>
     </g>
-    <g transform="translate(1026 350)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 336)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="muted" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">muted</text>
       <text class="muted code swatch-value" x="54" y="38">#A39B8C · secondary</text>
     </g>
-    <g transform="translate(1026 404)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 390)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="accent" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">accent</text>
       <text class="muted code swatch-value" x="54" y="38">#D1A35C · selection</text>
     </g>
-    <g transform="translate(1026 458)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 444)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="ember" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">ember</text>
       <text class="muted code swatch-value" x="54" y="38">#E0783E · focus</text>
     </g>
-    <g transform="translate(1026 512)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 498)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="info" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">info</text>
       <text class="muted code swatch-value" x="54" y="38">#7899A2 · status</text>
     </g>
-    <g transform="translate(1026 566)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 552)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="success" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">success</text>
       <text class="muted code swatch-value" x="54" y="38">#87996D · complete</text>
     </g>
-    <g transform="translate(1026 620)">
-      <rect class="elevated" width="300" height="48" rx="6"/>
+    <g transform="translate(1022 606)">
+      <rect class="elevated" width="322" height="48" rx="5"/>
       <rect class="danger" x="10" y="8" width="32" height="32" rx="5"/>
       <text class="text swatch-name" x="54" y="21">danger</text>
       <text class="muted code swatch-value" x="54" y="38">#C06452 · failure</text>
     </g>
 
-    <line class="rule" x1="1026" y1="692" x2="1326" y2="692"/>
-    <text class="text body" x="1026" y="716">Quiet by default. Warm at the edges.</text>
-    <text class="muted sm" x="1026" y="735">Designed for focused work after dark.</text>
+    <line class="rule" x1="1022" y1="681" x2="1344" y2="681"/>
+    <text class="text body" x="1022" y="706">Quiet by default. Warm at the edges.</text>
+    <text class="muted sm" x="1022" y="730">Designed for focused work after dark.</text>
   </g>
 </svg>

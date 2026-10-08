@@ -176,6 +176,10 @@ The preview must render in the built-in VS Code Markdown preview without extensi
 
 - Preserve legibility in a dark room.
 - Fit all essential controls at 1366x768 without crowding.
+- Outer screen gaps and tiled window gaps are 4 pixels at the target resolution.
+- Inactive window borders are 1 pixel; the focused border may use 2 pixels when it is drawn without reducing the window's usable content area.
+- Application title bars are no taller than 24 pixels. Hide redundant native title bars when the application still provides clear window state and controls.
+- Keep the approved system-wide font sizes unchanged when compacting window geometry.
 - Keep blur, opacity, and animation conservative for Intel HD 620 graphics.
 - Use one shared semantic palette across applications.
 - Keep warnings and errors distinguishable without relying on color alone.
