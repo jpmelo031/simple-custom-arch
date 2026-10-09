@@ -28,11 +28,11 @@ This roadmap turns the approved design into ordered, verifiable phases. Only one
 - The user-approved palette remains unchanged.
 - The Phase 0 verifier passes without modifying the system.
 
-### Phase 1 — Base System and Packages — Planned
+### Phase 1 — Base System and Packages — In progress
 
-**Status:** Planned
+**Status:** In progress
 
-No Phase 1 package installation or removal has started.
+Repository preparation is complete. System changes remain staged behind fresh backups, a complete official transaction, validation, and the manual LTS boot checkpoint.
 
 **Goal:** Define and validate the smallest dependable package set for the notebook.
 
@@ -43,6 +43,7 @@ No Phase 1 package installation or removal has started.
 - Validate firmware, graphics, audio, network, fonts, and maintenance tools.
 - Establish the safe manual update procedure.
 - Identify redundant and orphaned packages.
+- Add the regular and LTS kernel recovery paths and validate both.
 
 **Rule:** Prefer official packages, never perform partial upgrades, and install only packages with a documented purpose.
 
@@ -53,6 +54,11 @@ No Phase 1 package installation or removal has started.
 - Network, audio, and Intel graphics work.
 - Failed services are fixed or explicitly documented.
 - No package is removed without approval.
+
+**Execution references:**
+
+- [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
+- [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
 
 ### Phase 2 — Hyprland Core — Not started
 

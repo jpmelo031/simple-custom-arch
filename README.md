@@ -25,7 +25,7 @@ Every package, service, script, and visual effect must have a documented purpose
 
 ## Current Phase
 
-Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages is planned next, but no Phase 1 package installation or removal has started. No system configuration has been deployed from this repository.
+Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages is in progress. Its repository preparation is complete; package installation, cleanup, LTS boot validation, and the sanitized post-change baseline remain staged work. No Phase 2 configuration is active.
 
 ### Completed
 
@@ -37,13 +37,16 @@ Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages
 - Created the Majula semantic palette with documented contrast and component usage.
 - Approved compact geometry for the target display: 4-pixel gaps, 1-pixel inactive borders, 2-pixel focused borders, 24-pixel application title bars, and a 28-pixel Waybar.
 - Created and inspected the theme preview at the notebook's native 1366x768 resolution.
+- Defined the Phase 1 desired package manifests and documented every package role.
+- Added isolated repository checks and read-only live-system verification for Phase 1.
+- Documented the weekly complete-upgrade and recovery procedure.
 
 ## Roadmap
 
 | Phase | Focus | Status |
 |---:|---|---|
 | 0 | Project contract, repository structure, sanitized baseline, and recovery prerequisites | Complete |
-| 1 | Base system and package manifests | Planned |
+| 1 | Base system and package manifests | In progress |
 | 2 | Hyprland core and keybindings | Not started |
 | 3 | Desktop essentials | Not started |
 | 4 | Majula visual system implementation | Not started |
@@ -61,6 +64,8 @@ Each phase is planned and verified before the next one begins. The future portab
 - [Maintenance and recovery guide](docs/maintenance.md)
 - [Project design and full roadmap](docs/superpowers/specs/2026-10-08-simple-custom-arch-design.md)
 - [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)
+- [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
+- [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
 - [Majula theme reference](docs/theme.md)
 - [Majula theme preview](docs/assets/theme-preview.svg)
 - [Theme preview implementation plan](docs/superpowers/plans/2026-10-08-majula-theme-preview.md)
@@ -76,4 +81,4 @@ Each phase is planned and verified before the next one begins. The future portab
 
 ## Next Step
 
-Plan Phase 1 by reviewing the observed package set and assigning a documented purpose to each desired package. Do not install or remove packages until that plan is reviewed and approved.
+Continue the approved Phase 1 implementation plan: capture a fresh recovery state, apply the complete package transactions, validate the system, and stop at the manual LTS reboot checkpoint.

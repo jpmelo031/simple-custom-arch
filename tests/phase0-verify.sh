@@ -24,8 +24,8 @@ if ! rg -q '^Completed phase: \*\*Phase 0 — Project Foundation\*\*\.$' "$proje
   fail "AGENTS.md must identify Phase 0 as complete"
 fi
 
-if ! rg -q '^Next planned phase: \*\*Phase 1 — Base System and Packages\*\*\.$' "$project_root/AGENTS.md"; then
-  fail "AGENTS.md must identify Phase 1 as planned"
+if ! rg -q '^Active phase: \*\*Phase 1 — Base System and Packages\*\*\.$' "$project_root/AGENTS.md"; then
+  fail "AGENTS.md must identify Phase 1 as active"
 fi
 
 new_fixture() {

@@ -1,75 +1,110 @@
 # Maintenance and Recovery
 
-This document defines the recovery prerequisites for project-managed changes. It does not replace the Arch Linux installation guide or package documentation.
+This guide owns the manual maintenance and file-level recovery procedure for the target notebook. It implements the [Phase 1 design specification](superpowers/specs/2026-10-08-phase-1-base-system-design.md) and [Phase 1 implementation plan](superpowers/plans/2026-10-08-phase-1-base-system.md).
 
-## Phase 0 Scope
+Every system-facing change follows `Inspect -> Plan -> Backup -> Apply -> Verify -> Document`. Schedule normal maintenance once per week when there is time to investigate an unexpected result. Never reboot or shut down automatically.
 
-Phase 0 records recovery expectations only. No command in a recovery procedure is executed as part of Phase 0 verification, and the repository does not deploy or replace any system configuration during this phase.
+## Weekly Maintenance Procedure
 
-## Before Any Configuration Change
+Run the sections in order. Stop after any failed or ambiguous step, preserve the log, and keep the machine running. Do not continue to a dependent section merely because an earlier command changed part of the system.
 
-Every system-facing change follows `Inspect -> Plan -> Backup -> Apply -> Verify -> Document`.
+### 1. Preflight
 
-Before applying a change:
+1. Read current [Arch Linux news](https://archlinux.org/news/) and handle any applicable manual-intervention notice before refreshing package databases.
+2. Confirm full connectivity with `nmcli general status` and enough free space with `df -h /`.
+3. Confirm both the regular and LTS kernels are installed and the Limine fallback entry is available.
+4. Confirm the repository is clean and its repository-only checks pass with `./scripts/verify --root "$PWD"`.
+5. Run `checkupdates` for a safe preview. Its exit status may indicate that updates are available; it must not alter the live sync database.
+6. Inspect `/var/lib/pacman/db.lck` if it exists. Use `ps` or `fuser` to identify the owning package process. Never delete the lock while Pacman or Yay is running.
+7. Create a UTC timestamped directory under `~/.local/state/simple-custom-arch/backups/`, and point `~/.local/state/simple-custom-arch/phase1-current` to it.
+8. Capture explicit official and foreign packages, orphans, failed system and user units, free space, the running kernel, and package-cache size in that directory.
+9. Back up `/etc/pacman.conf`, `/etc/mkinitcpio.conf`, `/etc/mkinitcpio.d/`, and the active Limine configuration while preserving ownership and modes.
 
-1. Inspect the current file, service, package, or session state.
-2. List every path and command the change will affect.
-3. Choose a timestamped directory under `~/.local/state/simple-custom-arch/backups/`.
-4. Write the exact restore command before modifying the original path.
-5. Define a verification command that distinguishes success from partial failure.
-6. Record the result and the backup location without adding runtime data to Git.
+Runtime output can contain local identifiers. Keep the complete logs and backups outside Git and record only sanitized results in `docs/baseline/`.
 
-The change plan must identify whether it needs root privileges, interrupts the graphical session, or can affect the next boot. A backup is useful only after its contents, ownership, and permissions have been checked.
+### 2. Complete Official Upgrade
 
-> **Recovery procedure — do not run during Phase 0:** restore a managed path with a command shaped like `cp -a -- "$backup_path/<relative-path>" "$restore_path"`, using values recorded by the change that created the backup. Verify the restored path before restarting any component.
+Run one complete official transaction in a TTY and save its output in the current state directory:
 
-## TTY Recovery Prerequisites
+```bash
+sudo pacman -Syu
+```
 
-Before a graphical configuration is deployed, confirm all of these from a non-graphical session:
+Never run `pacman -Sy` by itself. After package databases are refreshed, an interrupted transaction leaves the system at a critical boundary: diagnose the error and finish the complete upgrade before any unrelated package action. Do not restore an older Pacman configuration in the middle of that boundary.
 
-- A TTY login works with the normal user account.
-- Network access can be restored or inspected without Hyprland.
-- The repository location is known and accessible.
-- `~/.local/state/simple-custom-arch/` is accessible and contains the expected backup.
-- The display manager can be inspected without requiring a working compositor.
+Review provider choices, replacements, removals, and `.pacnew` notices before accepting the transaction. Reject an unplanned removal or provider change and revise the active plan before continuing.
 
-Useful read-only checks include `systemctl --failed`, `systemctl status sddm.service`, `systemctl --user --failed`, and `nmcli general status`. Record the chosen TTY key combination and repository path in local recovery notes; do not commit machine identifiers or account names.
+### 3. Reviewed Foreign Packages
 
-## Graphical Session Recovery
+Only after the official transaction succeeds, update the reviewed foreign packages separately:
 
-Stop at diagnosis when a graphical login fails. From a TTY, inspect the display manager, user services, and available Hyprland error output. Identify the smallest affected path and preserve relevant logs before restoring anything.
+```bash
+yay -Sua
+```
 
-> **Recovery procedure — do not run during Phase 0:** restore only the affected configuration from its recorded backup. Re-run the configuration-specific verifier, then retry the graphical session. Restart a service or session only when the active change plan names that action and the checks have succeeded.
+The reviewed set is `visual-studio-code-bin`, `yay`, and `zen-browser-bin`. Stop if Yay proposes an unreviewed package, replaces a desired package, or expands a removal. A Yay rebuild may install Go temporarily; report it as an orphan for a later reviewed cleanup.
 
-Do not replace the entire configuration tree to repair one file. Keep the failed version until the cause is understood.
+### 4. Review `.pacnew` Files
 
-## Package Recovery
+Inspect Pacman's recorded output, then review configuration differences:
 
-Arch package operations must use complete upgrades. Never run `pacman -Sy` by itself and never mix a refreshed package database with an incomplete upgrade. If Pacman reports a lock, first determine whether another package process is active; do not delete the lock blindly.
+```bash
+sudo DIFFPROG=nvim pacdiff
+```
 
-> **Recovery procedure — do not run during Phase 0:** when the installed system still boots and the package database is healthy, use the planned complete-upgrade procedure and preserve its log. If the installed system cannot boot, start trusted Arch installation media, mount the installed filesystems according to the local recovery notes, enter the system with `arch-chroot`, and repair the package or boot state from there.
+Merge changes deliberately. Do not replace an active configuration wholesale, and do not delete a `.pacsave` until the restored service and syntax checks pass. If a merge affects boot, networking, authentication, or package management, validate that area before proceeding.
 
-Package removal and cache cleanup require a separate reviewed plan. Recovery must not introduce an unreviewed partial upgrade.
+### 5. Validate the Updated System
 
-## Restore Contract
-
-- Restore only paths affected by the failed change.
-- Preserve the failed state and its logs until the cause is documented.
-- Verify restored ownership, permissions, file type, and syntax.
-- Re-run the same checks that guarded the original change.
-- Never restart, shut down, or continue to a dependent step after a failed check.
-- Document the recovery result and keep the backup until the repaired state is stable.
-
-## Logs and State
-
-Future project logs, backups, lock files, and transient state belong under `~/.local/state/simple-custom-arch/`. These runtime files are local to the machine and are never committed. Each later script must create only the directories it owns and must print the relevant log or backup path when an operation fails.
-
-## Phase 0 Verification
-
-From the repository root, run:
+Run the complete project verifier:
 
 ```bash
 ./scripts/verify
 ```
 
-The verifier discovers the project from its own location, so an absolute or otherwise valid path to `scripts/verify` also works from outside the repository. Successful verification prints a `[PASS]` result for every Phase 0 condition and exits with status `0`. A failure prints every detected problem to standard error and exits with status `1`; invalid command-line arguments exit with status `2`. The verifier is read-only apart from one temporary preview image that is removed automatically.
+Also inspect the current kernel and the package transaction log. The verifier must confirm the desired explicit package set, approved removals, orphan state, failed-unit exception, essential services, full network connectivity, PipeWire audio, Bluetooth, Intel graphics providers, Java, launchers, and graphical-session data.
+
+When a kernel or boot configuration changed, inspect both regular and LTS artifacts and the Limine entries before any manual reboot. Launch Steam and Prism Launcher one at a time when the active phase calls for their graphical smoke test; sign-in and downloads are outside this procedure.
+
+### 6. Retain the Package Cache
+
+Clean the cache only after every validation passes:
+
+```bash
+sudo paccache -rk2
+```
+
+This retains two cached versions of installed packages. Preserve the command output in the current state directory, then run `./scripts/verify` again. Skip cache cleanup when any earlier check failed because retained packages may be needed during diagnosis.
+
+### 7. Recovery and Failure Stops
+
+On failure, stop the sequence, keep the notebook powered on, and preserve the state directory. Identify the smallest affected component before restoring anything.
+
+- Restore only a configuration file changed by the failed operation, using its timestamped backup and recorded owner and mode.
+- Re-run the syntax and service checks that guarded the file before restarting its component.
+- Use cached package rollback only when Arch guidance for the specific failure supports it. Arbitrary partial downgrades are not a general recovery method.
+- Use the regular or LTS kernel entry when one kernel regresses. Keep trusted Arch installation media available for `arch-chroot` recovery when neither entry boots.
+- Do not disable or mask a failing service merely to make verification green.
+- Do not continue to foreign packages, `.pacnew` merges, cache cleanup, or a reboot after an incomplete official transaction.
+
+The root filesystem uses ext4. ext4 does not provide a filesystem snapshot for this procedure, so recovery relies on file backups, two retained package versions, a working fallback kernel, TTY access, and trusted installation media.
+
+## TTY Recovery Prerequisites
+
+Before deploying graphical configuration in a later phase, confirm from a non-graphical session that a normal TTY login works, NetworkManager can be inspected, the repository and current state directory are accessible, and SDDM can be diagnosed without a working compositor.
+
+Useful read-only checks include `systemctl --failed`, `systemctl status sddm.service`, `systemctl --user --failed`, and `nmcli general status`. Keep the chosen TTY key combination and any machine-specific path in local recovery notes rather than Git.
+
+## Restore Contract
+
+- Restore only paths affected by the failed change.
+- Preserve the failed state and its logs until the cause is understood.
+- Verify restored ownership, permissions, file type, and syntax.
+- Re-run the checks that guarded the original change.
+- Restart a component only when the active plan names that action.
+- Keep the backup until the repaired state has remained stable.
+- Commit only sanitized conclusions, never raw logs or machine identifiers.
+
+## Logs and State
+
+Project logs, backups, and transient state belong under `~/.local/state/simple-custom-arch/`. Each operation owns a timestamped subdirectory and must surface that location when it fails. These runtime files are local to the notebook and are never committed.

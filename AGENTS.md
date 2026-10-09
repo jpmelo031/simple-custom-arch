@@ -92,9 +92,11 @@ Do not skip a step. Phase 0 is repository-only work and must not alter the runni
 
 Completed phase: **Phase 0 — Project Foundation**.
 
-Next planned phase: **Phase 1 — Base System and Packages**.
+Active phase: **Phase 1 — Base System and Packages**.
 
-Phase 1 remains planning-only until its implementation plan is reviewed and approved. Do not install or remove packages while preparing that plan.
+The approved Phase 1 plan is being executed in ordered gates. Repository preparation is complete; system changes require fresh local backups and the plan's stop conditions. Phase 2 remains not started, and no Phase 2 configuration may be added while Phase 1 is active.
 
 - [Design specification](docs/superpowers/specs/2026-10-08-simple-custom-arch-design.md)
 - [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)
+- [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
+- [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
