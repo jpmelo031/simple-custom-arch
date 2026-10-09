@@ -133,7 +133,9 @@ Before changing the boot configuration, the implementation must:
 3. Record the current package list and kernel release.
 4. Confirm that trusted Arch installation media is available or can be prepared.
 
-After installing `linux-lts`, verification must confirm its kernel image, initramfs, Intel microcode use, root arguments, and Limine entry. No script may restart or power off the notebook. Phase 1 is complete only after the user manually boots the LTS entry once and confirms a working graphical session, network, audio, and input, then returns to the regular kernel as the default.
+The regular kernel preset produces `/boot/EFI/Linux/arch-linux.efi`. Phase 1 configures the LTS preset to produce `/boot/EFI/Linux/arch-linux-lts.efi` with the same mkinitcpio hooks and splash behavior. Limine keeps the regular EFI entry first and adds one `Arch Linux LTS` entry whose duplicated configuration changes only the visible label and UKI path. Root arguments remain byte-for-byte equal and local.
+
+After installing `linux-lts`, verification must confirm both UKIs, the backed-up presets, and the normalized Limine entries. No script may restart or power off the notebook. Phase 1 is complete only after the user manually boots the LTS entry once and confirms a working graphical session, network, audio, and input, then returns to the regular kernel as the default.
 
 ## Weekly Maintenance Procedure
 
@@ -179,7 +181,7 @@ The observed TPM provides partial TPM2 support. Systemd 262 creates its storage 
 - `systemd-pcrproduct.service`
 - Two instances of `systemd-pcrlogin@.service`, recorded in versioned documentation as `systemd-pcrlogin@*.service`
 
-The notebook does not use the NvPCR-dependent security flows. Phase 1 documents these exact failures as a known hardware compatibility exception and does not mask the units. Verification fails for any additional failed unit or any changed failure pattern. If a later project phase adopts TPM-bound encryption, Secure Boot, or unified kernel images, this exception must be investigated again before that feature is enabled.
+The notebook does not use the NvPCR-dependent security flows. Phase 1 documents these exact failures as a known hardware compatibility exception and does not mask the units. Verification fails for any additional failed unit or any changed failure pattern. If a later project phase adopts TPM-bound encryption, Secure Boot, or UKI measurement policies, this exception must be investigated again before that feature is enabled.
 
 ## Performance Policy
 
@@ -245,7 +247,7 @@ Phase 1 is complete when:
 
 - Every desired explicit package has a documented role and source.
 - Official and foreign manifests are sorted, unique, and match the reviewed explicit package state.
-- The regular and LTS kernels have valid initramfs images and working Limine entries.
+- The regular and LTS kernels have valid `arch-linux.efi` and `arch-linux-lts.efi` UKIs with working Limine entries.
 - The LTS kernel has completed one successful manual boot test.
 - NetworkManager, Wi-Fi, PipeWire, WirePlumber, analog audio, Bluetooth, Intel OpenGL, Intel Vulkan, and Intel video acceleration work.
 - Steam and Prism Launcher start with the intended Intel graphics providers.

@@ -416,36 +416,36 @@ Expected: every approved package and `multilib` are present with no wrong-vendor
 
 **Files:**
 - Runtime only: the active Limine configuration recorded in Task 4
-- Runtime only: `/boot/vmlinuz-linux-lts`
-- Runtime only: `/boot/initramfs-linux-lts.img`
+- Runtime only: `/etc/mkinitcpio.d/linux-lts.preset`
+- Runtime only: `/boot/EFI/Linux/arch-linux.efi`
+- Runtime only: `/boot/EFI/Linux/arch-linux-lts.efi`
 
 **Interfaces:**
 - Consumes: recovery directory and installed `linux-lts` package from Task 4
-- Produces: a backed-up visible LTS entry that preserves the regular kernel as default and is consumed by Task 7
+- Produces: a backed-up LTS UKI and visible Limine entry that preserve the regular UKI as default and are consumed by Task 7
 
 - [ ] **Step 1: Verify generated kernel artifacts**
 
-With privileged read-only checks, require nonempty regular and LTS kernel images, both initramfs images, and Intel microcode. Inspect the LTS mkinitcpio preset. Run `sudo mkinitcpio -P` only if a package hook did not generate a required image, preserve output, and recheck all artifacts.
+With privileged read-only checks, require the regular `/boot/EFI/Linux/arch-linux.efi` UKI, LTS kernel and initramfs artifacts, and Intel microcode. Inspect both mkinitcpio presets. Run `sudo mkinitcpio -P` only when an expected artifact is absent, preserve output, and recognize that the regular preset intentionally produces a UKI rather than `/boot/initramfs-linux.img`.
 
-- [ ] **Step 2: Stage the Limine configuration**
+- [ ] **Step 2: Stage the LTS preset and Limine configuration**
 
-Copy the active configuration to a user-owned temporary file without printing boot arguments. If a package hook already created exactly one correct LTS entry, leave it unchanged and continue to Step 3. Otherwise, duplicate the complete regular Arch Linux entry and change only:
+Back up the installed LTS preset, then stage it to produce `/boot/EFI/Linux/arch-linux-lts.efi` with the regular preset's splash behavior. Copy the active Limine configuration to a user-owned temporary file without printing boot arguments. If it already contains exactly one correct LTS entry, leave it unchanged. Otherwise, duplicate the complete regular Arch Linux EFI entry and change only:
 
 - Entry label to `Arch Linux LTS`.
-- Regular kernel filename to `vmlinuz-linux-lts`.
-- Regular initramfs filename to `initramfs-linux-lts.img`.
+- Regular UKI filename from `arch-linux.efi` to `arch-linux-lts.efi`.
 
-Keep root arguments, Intel microcode, and every other option byte-for-byte equal. Keep the regular entry first so it remains default.
+Keep the protocol, root arguments, and every other option byte-for-byte equal. Keep the regular entry first so it remains default.
 
 - [ ] **Step 3: Test the staged transformation**
 
-Normalize only the label and two kernel filenames in copies of the regular and LTS stanzas and compare them with `diff -u`. Require no other difference, exactly one regular entry, one LTS entry, and the same Intel microcode reference in each.
+Normalize only the label and UKI filename in copies of the regular and LTS stanzas and compare them with `diff -u`, writing any sensitive diff only to the local recovery directory. Require no other difference, exactly one regular entry, one LTS entry, and the regular entry first.
 
-Expected: the comparison passes. Changed root identifiers, missing microcode, or an LTS-first order stops installation.
+Expected: the comparison passes. Changed root identifiers or an LTS-first order stops installation.
 
-- [ ] **Step 4: Install and re-read the Limine configuration**
+- [ ] **Step 4: Generate the LTS UKI, install, and re-read**
 
-Install the staged file using the original mode and owner. Copy the installed file back to a second temporary path through a privileged read, repeat the normalized comparison, then delete both temporary copies.
+Install the staged LTS preset using the original mode and owner, run `mkinitcpio -p linux-lts`, and require a nonempty `/boot/EFI/Linux/arch-linux-lts.efi`. Install the staged Limine file using the original mode and owner. Copy the installed file back to a second temporary path through a privileged read, repeat the normalized comparison, then delete all sensitive temporary copies.
 
 Expected: the installed configuration equals the reviewed file without exposing identifiers in Git or output.
 

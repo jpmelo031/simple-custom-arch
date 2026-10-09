@@ -8,6 +8,8 @@ maintenance="$project_root/docs/maintenance.md"
 readme="$project_root/README.md"
 roadmap="$project_root/ROADMAP.md"
 agents="$project_root/AGENTS.md"
+phase1_spec="$project_root/docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md"
+phase1_plan="$project_root/docs/superpowers/plans/2026-10-08-phase-1-base-system.md"
 
 if [[ "$mode" != in-progress && "$mode" != complete ]]; then
   printf 'Usage: %s in-progress|complete\n' "${0##*/}" >&2
@@ -61,6 +63,11 @@ require_text "$roadmap" '[Phase 1 design specification](docs/superpowers/specs/2
 require_text "$roadmap" '[Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)'
 require_text "$agents" '[Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)'
 require_text "$agents" '[Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)'
+
+for document in "$phase1_spec" "$phase1_plan"; do
+  require_text "$document" 'arch-linux.efi'
+  require_text "$document" 'arch-linux-lts.efi'
+done
 
 case "$mode" in
   in-progress)
