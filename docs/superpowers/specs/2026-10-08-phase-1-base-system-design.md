@@ -50,7 +50,7 @@ The read-only audit on 2026-10-08 found:
 - Intel HD Graphics 620 uses the `i915` kernel driver. Mesa, Intel Vulkan, the modern Intel media driver, and the legacy VA-API driver are installed.
 - The notebook has no battery and operates from mains power only.
 - `go` is the only reported orphan and uses approximately 226 MiB.
-- The four approved removal candidates use approximately 255 MiB in total.
+- The approved cleanup transaction is expected to recover approximately 294 MiB, including Vim's dependency-only runtime.
 - `checkupdates`, `paccache`, `pacdiff`, `brightnessctl`, and `playerctl` are not installed.
 - Four TPM-related systemd units fail because the firmware provides only partial TPM2 support and NvPCR initialization is unavailable.
 - The notebook does not use Windows, BitLocker, Secure Boot, or disk encryption bound to the TPM.
@@ -81,6 +81,8 @@ After installation and validation, package install reasons may be normalized wit
 | `lib32-vulkan-intel` | Official `multilib` | Correct 32-bit Vulkan provider for Intel graphics and Proton |
 | `prismlauncher` | Official | Minecraft instance and launcher management |
 | `jre21-openjdk` | Official | System Java runtime for current Minecraft releases |
+| `libva-utils` | Official | Direct VA-API validation through `vainfo` |
+| `vulkan-tools` | Official | Direct Vulkan validation through `vulkaninfo` |
 
 Older Java runtimes are added only when a specific Minecraft instance requires them. Steam dependencies are resolved by Pacman; optional troubleshooting libraries are not preinstalled.
 
@@ -103,10 +105,11 @@ Older Java runtimes are added only when a specific Minecraft instance requires t
 |---|---|
 | `go` | Current orphan; Go development will be introduced later as an intentional development dependency |
 | `vim` | Redundant with Neovim and the retained Nano recovery editor |
+| `vim-runtime` | Dependency used only by the approved `vim` removal target |
 | `wofi` | Redundant with the project-selected Rofi launcher |
 | `yay-debug` | Debug symbols are not used and have not been needed during two years of Yay use |
 
-Removal must be a separate operation after the updated system passes its first validation. The implementation must show Pacman's complete removal transaction and stop if it includes any package outside the approved set or newly orphaned dependencies that have not been reviewed.
+Removal must be a separate operation after the updated system passes its first validation. The implementation must show Pacman's complete removal transaction and stop if it includes any package outside the five approved package names or newly orphaned dependencies that have not been reviewed.
 
 The source-built `yay` package may require Go again as a temporary build dependency during a future Yay upgrade. That operation may install Go when needed; the weekly maintenance procedure then reports it as an orphan for a separate reviewed cleanup instead of assuming it is a permanent development package.
 
@@ -245,8 +248,8 @@ Phase 1 is complete when:
 - The LTS kernel has completed one successful manual boot test.
 - NetworkManager, Wi-Fi, PipeWire, WirePlumber, analog audio, Bluetooth, Intel OpenGL, Intel Vulkan, and Intel video acceleration work.
 - Steam and Prism Launcher start with the intended Intel graphics providers.
-- `checkupdates`, `paccache`, `pacdiff`, `brightnessctl`, and `playerctl` are available.
-- `go`, `vim`, `wofi`, and `yay-debug` are absent, with no unexpected orphan introduced by their removal.
+- `checkupdates`, `paccache`, `pacdiff`, `brightnessctl`, `playerctl`, `vainfo`, and `vulkaninfo` are available.
+- `go`, `vim`, `vim-runtime`, `wofi`, and `yay-debug` are absent, with no unexpected orphan introduced by their removal.
 - Only the documented TPM NvPCR units remain failed; no other system or user service has an unexplained failure.
 - The weekly complete-upgrade and recovery procedures are documented and reviewable.
 - The sanitized post-change baseline contains no prohibited identifiers.
