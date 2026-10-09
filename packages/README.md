@@ -27,6 +27,7 @@ The package manifests describe the intended explicitly installed system. They ar
 | `intel-media-driver`, `libva-intel-driver`, `libva-utils` | Current Intel VA-API driver, retained compatibility driver, and diagnostics. |
 | `libvpl`, `vpl-gpu-rt` | Intel oneVPL video processing runtime. |
 | `vulkan-intel`, `vulkan-tools` | Native Intel Vulkan driver and diagnostics. |
+| `mesa-utils` | Direct Intel OpenGL and EGL diagnostics through `eglinfo`. |
 | `lib32-mesa`, `lib32-vulkan-intel` | Intel 32-bit OpenGL and Vulkan providers required by Steam. |
 | `brightnessctl` | Backlight control for future hardware key bindings. |
 | `smartmontools` | Storage health diagnostics. |

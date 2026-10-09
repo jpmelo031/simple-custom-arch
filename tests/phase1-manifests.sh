@@ -54,6 +54,7 @@ limine
 linux
 linux-firmware
 linux-lts
+mesa-utils
 mkinitcpio
 nano
 neovim

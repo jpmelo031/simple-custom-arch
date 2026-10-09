@@ -107,6 +107,7 @@ limine
 linux
 linux-firmware
 linux-lts
+mesa-utils
 mkinitcpio
 nano
 neovim
@@ -386,7 +387,7 @@ Run in a TTY and preserve output in the recovery directory:
 ```bash
 sudo pacman -Syu --needed \
   brightnessctl jre21-openjdk lib32-mesa lib32-vulkan-intel \
-  libva-utils linux-lts pacman-contrib playerctl prismlauncher \
+  libva-utils linux-lts mesa-utils pacman-contrib playerctl prismlauncher \
   steam vulkan-tools
 ```
 
@@ -401,7 +402,7 @@ After the official transaction succeeds, run `yay -Sua` and preserve its log. Re
 ```bash
 pacman -Q linux linux-lts pacman-contrib brightnessctl playerctl \
   steam lib32-mesa lib32-vulkan-intel prismlauncher jre21-openjdk \
-  libva-utils vulkan-tools
+  libva-utils mesa-utils vulkan-tools
 pacman-conf --repo-list | rg -x 'multilib'
 ```
 

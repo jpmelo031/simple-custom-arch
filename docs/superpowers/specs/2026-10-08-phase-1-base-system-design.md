@@ -83,6 +83,7 @@ After installation and validation, package install reasons may be normalized wit
 | `jre21-openjdk` | Official | System Java runtime for current Minecraft releases |
 | `libva-utils` | Official | Direct VA-API validation through `vainfo` |
 | `vulkan-tools` | Official | Direct Vulkan validation through `vulkaninfo` |
+| `mesa-utils` | Official | Direct OpenGL and EGL validation through `eglinfo` |
 
 Older Java runtimes are added only when a specific Minecraft instance requires them. Steam dependencies are resolved by Pacman; optional troubleshooting libraries are not preinstalled.
 

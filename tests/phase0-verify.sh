@@ -111,9 +111,9 @@ expect_fail_containing \
 
 run_real_verifier_from_tmp() {
   cd /tmp
-  "$verifier"
+  "$verifier" --root "$project_root"
 }
 
-expect_pass "repository-root discovery from /tmp" run_real_verifier_from_tmp
+expect_pass "explicit repository root from /tmp" run_real_verifier_from_tmp
 
 printf 'PASS: 6/6 Phase 0 verifier behaviors\n'
