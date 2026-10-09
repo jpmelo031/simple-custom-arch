@@ -13,7 +13,11 @@ phase1_verify_repository() {
   local foreign="$root/packages/aur.txt"
   local roles="$root/packages/README.md"
   local temp_dir manifest relative parsed sorted package
-  local -a removals=(go vim vim-runtime wofi yay-debug)
+  local -a required_desktop=(cliphist hypridle hyprlock hyprpaper waybar wl-clipboard)
+  local -a excluded=(
+    github-cli jre21-openjdk lib32-mesa lib32-vulkan-intel libva-utils
+    linux-lts mesa-utils pacman-contrib prismlauncher steam vulkan-tools
+  )
 
   temp_dir="$(mktemp -d "${TMPDIR:-/tmp}/simple-custom-arch-phase1-repository.XXXXXX")"
 
@@ -47,11 +51,11 @@ phase1_verify_repository() {
   done
 
   parsed="$temp_dir/official.txt.parsed"
-  if rg -Fqx -- 'linux-lts' "$parsed"; then
-    pass 'Phase 1 fallback kernel: linux-lts is desired'
-  else
-    fail 'Phase 1 fallback kernel' 'linux-lts is missing from packages/official.txt'
-  fi
+  for package in "${required_desktop[@]}"; do
+    if ! rg -Fqx -- "$package" "$parsed"; then
+      fail 'Additive desktop package set' "$package is missing from packages/official.txt"
+    fi
+  done
 
   cat > "$temp_dir/foreign.expected" <<'EOF'
 visual-studio-code-bin
@@ -72,19 +76,17 @@ EOF
     fi
   done < <(cat "$temp_dir/official.txt.parsed" "$temp_dir/aur.txt.parsed")
 
-  for package in "${removals[@]}"; do
+  for package in "${excluded[@]}"; do
     if cat "$temp_dir/official.txt.parsed" "$temp_dir/aur.txt.parsed" | rg -Fqx -- "$package"; then
-      fail 'Phase 1 approved removals' "$package must not appear in a desired manifest"
+      fail 'Additive desktop exclusions' "$package is outside the approved package scope"
     fi
   done
 
-  if ! rg -q '^\| `multilib`|official `multilib`|official repositories.*`multilib`' "$roles" \
-    || ! rg -Fq -- '`lib32-mesa`' "$roles" \
-    || ! rg -Fq -- '`lib32-vulkan-intel`' "$roles"; then
-    fail 'Phase 1 multilib documentation' 'multilib and both Intel 32-bit providers must be documented'
-  else
-    pass 'Phase 1 multilib documentation'
-  fi
+  for package in "${required_desktop[@]}"; do
+    if ! rg -Fq -- "\`$package\`" "$roles"; then
+      fail 'Additive desktop package roles' "$package is not documented"
+    fi
+  done
 
   rm -rf -- "$temp_dir"
 }
@@ -103,8 +105,8 @@ phase1_capture_system() {
   local snapshot_dir=$1
   local command_name service status
   local -a required_commands=(
-    bluetoothctl brightnessctl checkupdates eglinfo java nmcli paccache pacdiff
-    pactl playerctl prismlauncher steam vainfo vulkaninfo wpctl
+    bluetoothctl brightnessctl cliphist hypridle hyprlock hyprpaper nmcli
+    pactl playerctl waybar wl-copy wl-paste wpctl
   )
   local -a system_services=(NetworkManager.service bluetooth.service sddm.service ufw.service)
   local -a user_services=(pipewire.service pipewire-pulse.service wireplumber.service)
@@ -117,15 +119,9 @@ phase1_capture_system() {
   phase1_capture_command "$snapshot_dir/orphans.txt" pacman -Qdtq
 
   : > "$snapshot_dir/commands.txt"
-  : > "$snapshot_dir/launchers.txt"
   for command_name in "${required_commands[@]}"; do
     if command -v -- "$command_name" >/dev/null 2>&1; then
       printf '%s\n' "$command_name" >> "$snapshot_dir/commands.txt"
-      case "$command_name" in
-        steam|prismlauncher)
-          printf '%s\n' "$command_name" >> "$snapshot_dir/launchers.txt"
-          ;;
-      esac
     fi
   done
 
@@ -152,10 +148,6 @@ phase1_capture_system() {
     fi
   } > "$snapshot_dir/audio.txt" 2>&1
   phase1_capture_command "$snapshot_dir/bluetooth.txt" bluetoothctl show
-  phase1_capture_command "$snapshot_dir/vaapi.txt" vainfo
-  phase1_capture_command "$snapshot_dir/vulkan.txt" vulkaninfo --summary
-  phase1_capture_command "$snapshot_dir/opengl.txt" eglinfo -B
-  phase1_capture_command "$snapshot_dir/java.txt" java -version
   phase1_capture_command "$snapshot_dir/session.txt" hyprctl -j monitors
 }
 
@@ -172,19 +164,15 @@ phase1_verify_system() {
   local -a required_snapshot_files=(
     official-explicit.txt foreign-explicit.txt installed-all.txt orphans.txt
     commands.txt failed-system.txt failed-user.txt services.txt network.txt audio.txt
-    bluetooth.txt vaapi.txt vulkan.txt opengl.txt java.txt launchers.txt session.txt
+    bluetooth.txt session.txt
   )
   local -a required_commands=(
-    bluetoothctl brightnessctl checkupdates eglinfo java nmcli paccache pacdiff
-    pactl playerctl prismlauncher steam vainfo vulkaninfo wpctl
+    bluetoothctl brightnessctl cliphist hypridle hyprlock hyprpaper nmcli
+    pactl playerctl waybar wl-copy wl-paste wpctl
   )
   local -a required_services=(
     NetworkManager.service bluetooth.service pipewire-pulse.service
     pipewire.service sddm.service ufw.service wireplumber.service
-  )
-  local -a removals=(go vim vim-runtime wofi yay-debug)
-  local -a wrong_providers=(
-    lib32-amdvlk lib32-vulkan-radeon lib32-nvidia-utils lib32-vulkan-nouveau
   )
 
   for package in "${required_snapshot_files[@]}"; do
@@ -212,16 +200,8 @@ phase1_verify_system() {
     phase1_manifest_entries "$root/packages/aur.txt"
   )
 
-  for package in "${removals[@]}"; do
-    if phase1_snapshot_has_line "$snapshot_dir/installed-all.txt" "$package"; then
-      fail 'Phase 1 approved removals' "$package is still installed"
-    fi
-  done
-
   if [[ -s "$snapshot_dir/orphans.txt" ]]; then
-    while IFS= read -r package; do
-      [[ -n "$package" ]] && fail 'Phase 1 orphan packages' "unexpected orphan: $package"
-    done < "$snapshot_dir/orphans.txt"
+    pass 'Phase 1 orphan packages: reported without removal'
   else
     pass 'Phase 1 orphan packages: none'
   fi
@@ -296,42 +276,6 @@ phase1_verify_system() {
   else
     fail 'Phase 1 Bluetooth controller' 'powered controller data is unavailable'
   fi
-
-  if rg -qi 'intel.*iHD|iHD.*intel' "$snapshot_dir/vaapi.txt"; then
-    pass 'Phase 1 Intel VA-API provider'
-  else
-    fail 'Phase 1 Intel VA-API provider' 'Intel iHD data is unavailable'
-  fi
-  if rg -qi 'intel' "$snapshot_dir/vulkan.txt"; then
-    pass 'Phase 1 Intel Vulkan provider'
-  else
-    fail 'Phase 1 Intel Vulkan provider' 'Intel Vulkan data is unavailable'
-  fi
-  if rg -qi 'intel' "$snapshot_dir/opengl.txt"; then
-    pass 'Phase 1 Intel OpenGL provider'
-  else
-    fail 'Phase 1 Intel OpenGL provider' 'Intel OpenGL data is unavailable'
-  fi
-
-  for package in "${wrong_providers[@]}"; do
-    if phase1_snapshot_has_line "$snapshot_dir/installed-all.txt" "$package"; then
-      fail 'Phase 1 Intel 32-bit provider' "$package is installed"
-    fi
-  done
-
-  if rg -q 'version "21([.]|\")' "$snapshot_dir/java.txt"; then
-    pass 'Phase 1 Java 21 runtime'
-  else
-    fail 'Phase 1 Java runtime' 'Java 21 data is unavailable'
-  fi
-
-  for package in steam prismlauncher; do
-    if phase1_snapshot_has_line "$snapshot_dir/launchers.txt" "$package"; then
-      :
-    else
-      fail 'Phase 1 launcher executables' "$package is unavailable"
-    fi
-  done
 
   if [[ -s "$snapshot_dir/session.txt" ]] && rg -q '"width"[[:space:]]*:' "$snapshot_dir/session.txt"; then
     pass 'Phase 1 graphical session data'

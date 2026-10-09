@@ -109,18 +109,16 @@ new_system_snapshot() {
   cat > "$snapshot/commands.txt" <<'EOF'
 bluetoothctl
 brightnessctl
-checkupdates
-eglinfo
-java
+cliphist
+hypridle
+hyprlock
+hyprpaper
 nmcli
-paccache
-pacdiff
 pactl
 playerctl
-prismlauncher
-steam
-vainfo
-vulkaninfo
+waybar
+wl-copy
+wl-paste
 wpctl
 EOF
   cat > "$snapshot/failed-system.txt" <<'EOF'
@@ -142,11 +140,6 @@ EOF
   printf 'full\n' > "$snapshot/network.txt"
   printf 'Server Name: PulseAudio (on PipeWire)\nAudio Sinks Sources\n' > "$snapshot/audio.txt"
   printf 'Powered: yes\n' > "$snapshot/bluetooth.txt"
-  printf 'Driver version: Intel iHD driver\n' > "$snapshot/vaapi.txt"
-  printf 'deviceName = Intel Graphics\n' > "$snapshot/vulkan.txt"
-  printf 'OpenGL vendor string: Intel\n' > "$snapshot/opengl.txt"
-  printf 'openjdk version "21.0.8"\n' > "$snapshot/java.txt"
-  printf 'steam\nprismlauncher\n' > "$snapshot/launchers.txt"
   printf '[{"width":1366,"height":768}]\n' > "$snapshot/session.txt"
 
   printf '%s\n' "$snapshot"
@@ -170,8 +163,8 @@ fixture="$(new_repository_fixture)"
 expect_pass 'isolated repository fixture' run_repository_fixture "$fixture"
 
 fixture="$(new_repository_fixture)"
-sed -i '/^linux-lts$/d' "$fixture/packages/official.txt"
-expect_fail_containing 'missing fallback kernel' 'linux-lts' run_repository_check "$fixture"
+sed -i '/^waybar$/d' "$fixture/packages/official.txt"
+expect_fail_containing 'missing status bar' 'waybar' run_repository_check "$fixture"
 
 fixture="$(new_repository_fixture)"
 printf 'base\n' >> "$fixture/packages/official.txt"
@@ -194,7 +187,11 @@ expect_pass 'complete controlled system snapshot' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
 printf 'unexpected-orphan\n' > "$snapshot/orphans.txt"
-expect_fail_containing 'unexpected orphan' 'unexpected-orphan' run_system_check "$snapshot"
+expect_pass 'reported orphan is not removed' run_system_check "$snapshot"
+
+snapshot="$(new_system_snapshot)"
+printf 'vim\n' >> "$snapshot/installed-all.txt"
+expect_pass 'installed package outside the desired manifest is preserved' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
 sed -i '/pcrlogin@omega/d' "$snapshot/failed-system.txt"
@@ -215,15 +212,6 @@ expect_fail_containing 'missing required command' 'playerctl' run_system_check "
 snapshot="$(new_system_snapshot)"
 sed -i '/^brightnessctl$/d' "$snapshot/official-explicit.txt" "$snapshot/installed-all.txt"
 expect_fail_containing 'missing desired package' 'brightnessctl' run_system_check "$snapshot"
-
-for wrong_provider in lib32-vulkan-radeon lib32-nvidia-utils; do
-  snapshot="$(new_system_snapshot)"
-  printf '%s\n' "$wrong_provider" >> "$snapshot/installed-all.txt"
-  expect_fail_containing \
-    "wrong graphics provider $wrong_provider" \
-    "$wrong_provider" \
-    run_system_check "$snapshot"
-done
 
 snapshot="$(new_system_snapshot)"
 : > "$snapshot/session.txt"

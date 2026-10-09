@@ -31,30 +31,27 @@ base-devel
 bluez
 bluez-utils
 brightnessctl
+cliphist
 dolphin
 dunst
 efibootmgr
 git
-github-cli
 grim
 gst-plugin-pipewire
 htop
+hypridle
 hyprland
+hyprlock
+hyprpaper
 intel-media-driver
 intel-ucode
-jre21-openjdk
 kitty
-lib32-mesa
-lib32-vulkan-intel
 libpulse
 libva-intel-driver
-libva-utils
 libvpl
 limine
 linux
 linux-firmware
-linux-lts
-mesa-utils
 mkinitcpio
 nano
 neovim
@@ -63,21 +60,18 @@ networkmanager
 noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
-pacman-contrib
 pipewire
 pipewire-alsa
 pipewire-jack
 pipewire-pulse
 playerctl
 polkit-kde-agent
-prismlauncher
 qt5-wayland
 qt6-wayland
 rofi
 sddm
 slurp
 smartmontools
-steam
 sudo
 ttf-dejavu
 ttf-liberation
@@ -85,9 +79,10 @@ ufw
 uwsm
 vpl-gpu-rt
 vulkan-intel
-vulkan-tools
+waybar
 wget
 wireplumber
+wl-clipboard
 wpa_supplicant
 xdg-desktop-portal-hyprland
 xdg-user-dirs
@@ -140,9 +135,11 @@ while IFS= read -r package; do
     fail "$package is missing from packages/README.md"
 done < <(cat "$tmp_dir/official.expected" "$tmp_dir/aur.expected")
 
-for package in go vim vim-runtime wofi yay-debug; do
+for package in \
+  github-cli jre21-openjdk lib32-mesa lib32-vulkan-intel libva-utils \
+  linux-lts mesa-utils pacman-contrib prismlauncher steam vulkan-tools; do
   if cat "$tmp_dir/official.actual" "$tmp_dir/aur.actual" | rg -qx -- "$package"; then
-    fail "$package is an approved removal and must not be desired"
+    fail "$package is outside the approved additive desktop scope"
   fi
 done
 

@@ -16,7 +16,6 @@ The package manifests describe the intended explicitly installed system. They ar
 | --- | --- |
 | `base`, `base-devel`, `sudo` | Core Arch userspace, build tools, and privileged command delegation. |
 | `linux`, `linux-firmware`, `intel-ucode` | Primary kernel, device firmware, and Intel CPU microcode. |
-| `linux-lts` | Recovery kernel kept alongside the primary kernel. |
 | `mkinitcpio`, `limine`, `efibootmgr` | Initramfs generation and UEFI boot management. |
 | `zram-generator` | Compressed swap setup for the notebook's limited resources. |
 
@@ -24,15 +23,11 @@ The package manifests describe the intended explicitly installed system. They ar
 
 | Packages | Responsibility |
 | --- | --- |
-| `intel-media-driver`, `libva-intel-driver`, `libva-utils` | Current Intel VA-API driver, retained compatibility driver, and diagnostics. |
+| `intel-media-driver`, `libva-intel-driver` | Current Intel VA-API driver and retained compatibility driver. |
 | `libvpl`, `vpl-gpu-rt` | Intel oneVPL video processing runtime. |
-| `vulkan-intel`, `vulkan-tools` | Native Intel Vulkan driver and diagnostics. |
-| `mesa-utils` | Direct Intel OpenGL and EGL diagnostics through `eglinfo`. |
-| `lib32-mesa`, `lib32-vulkan-intel` | Intel 32-bit OpenGL and Vulkan providers required by Steam. |
-| `brightnessctl` | Backlight control for future hardware key bindings. |
+| `vulkan-intel` | Native Intel Vulkan driver. |
+| `brightnessctl` | Backlight control for the numeric-keypad brightness bindings. |
 | `smartmontools` | Storage health diagnostics. |
-
-Steam requires the official `multilib` repository. The selected 32-bit providers are explicitly limited to Intel hardware.
 
 ## Network, Bluetooth, Audio, and Security
 
@@ -54,8 +49,11 @@ Steam requires the official `multilib` repository. The selected 32-bit providers
 | `qt5-wayland`, `qt6-wayland` | Native Wayland support for Qt applications. |
 | `sddm` | Graphical login manager. |
 | `dunst`, `rofi`, `grim`, `slurp` | Notifications, application launcher, and screenshot selection tools. |
+| `waybar` | Compact status bar for workspaces and essential system state. |
+| `hyprlock`, `hypridle`, `hyprpaper` | Screen locking, idle behavior, and the project wallpaper. |
+| `wl-clipboard`, `cliphist` | Wayland clipboard commands and persistent session history. |
 
-Phase 1 retains these prerequisites without adding Hyprland configuration or key bindings.
+The additive desktop deployment uses these packages without replacing the generated Hyprland configuration.
 
 ## Applications and Fonts
 
@@ -70,19 +68,10 @@ Phase 1 retains these prerequisites without adding Hyprland configuration or key
 
 | Packages | Responsibility |
 | --- | --- |
-| `pacman-contrib` | Safe update checks, `.pacnew` review, and package-cache retention tools. |
-| `git`, `github-cli` | Source control and GitHub command-line access. |
+| `git` | Source control for the project repository. |
 | `wget` | Direct file retrieval for reviewed sources. |
 | `htop` | Interactive process and resource inspection. |
-| `playerctl` | Media-session controls for future key bindings. |
-
-## Gaming and Java
-
-| Packages | Responsibility |
-| --- | --- |
-| `steam` | Steam client from `multilib`. |
-| `prismlauncher` | Reviewed Minecraft launcher from the official repositories. |
-| `jre21-openjdk` | Java 21 runtime selected for current Minecraft versions. |
+| `playerctl` | Browser and media-player MPRIS controls for desktop key bindings. |
 
 ## Reviewed Foreign Packages
 
