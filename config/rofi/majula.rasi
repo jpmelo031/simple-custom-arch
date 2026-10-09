@@ -1,0 +1,74 @@
+* {
+    background: #0E1114;
+    surface: #171C20;
+    elevated: #20272C;
+    border: #465056;
+    text: #DDD6C6;
+    muted: #A39B8C;
+    accent: #D1A35C;
+    ember: #E0783E;
+    info: #7899A2;
+    success: #87996D;
+    danger: #C06452;
+}
+
+window {
+    width: 520px;
+    border: 2px;
+    border-color: @ember;
+    border-radius: 8px;
+    background-color: @elevated;
+}
+
+mainbox {
+    padding: 12px;
+    spacing: 8px;
+    background-color: transparent;
+}
+
+inputbar {
+    padding: 8px;
+    spacing: 8px;
+    border-radius: 5px;
+    background-color: @surface;
+    text-color: @text;
+    children: [ prompt, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+entry {
+    placeholder: "Type to filter";
+    placeholder-color: @muted;
+    text-color: @text;
+}
+
+listview {
+    lines: 8;
+    columns: 1;
+    spacing: 4px;
+    scrollbar: false;
+}
+
+element {
+    padding: 7px;
+    spacing: 10px;
+    border-radius: 5px;
+    text-color: @text;
+}
+
+element selected {
+    background-color: @accent;
+    text-color: @background;
+}
+
+element urgent {
+    background-color: @danger;
+    text-color: @text;
+}
+
+element-icon {
+    size: 20px;
+}

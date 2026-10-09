@@ -1,0 +1,14 @@
+configuration {
+    modi: "drun,run,window";
+    show-icons: true;
+    icon-theme: "breeze-dark";
+    display-drun: "Apps";
+    display-run: "Run";
+    display-window: "Windows";
+    drun-display-format: "{name}";
+    matching: "fuzzy";
+    sort: true;
+    terminal: "kitty";
+}
+
+@theme "majula"

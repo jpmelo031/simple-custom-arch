@@ -1,0 +1,57 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 4,
+  "modules-left": ["hyprland/workspaces", "hyprland/window"],
+  "modules-center": ["clock"],
+  "modules-right": ["network", "bluetooth", "pulseaudio", "backlight", "cpu", "memory", "tray", "custom/session"],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}"
+  },
+  "hyprland/window": {
+    "max-length": 54,
+    "separate-outputs": true
+  },
+  "clock": {
+    "format": "{:%a %d %b  %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "network": {
+    "format-wifi": "NET {signalStrength}%",
+    "format-ethernet": "NET wired",
+    "format-disconnected": "NET offline",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}"
+  },
+  "bluetooth": {
+    "format": "BT {status}",
+    "format-connected": "BT {num_connections}"
+  },
+  "pulseaudio": {
+    "format": "VOL {volume}%",
+    "format-muted": "VOL muted",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+  },
+  "backlight": {
+    "format": "BRI {percent}%"
+  },
+  "cpu": {
+    "format": "CPU {usage}%",
+    "interval": 5
+  },
+  "memory": {
+    "format": "MEM {percentage}%",
+    "interval": 5
+  },
+  "tray": {
+    "icon-size": 14,
+    "spacing": 6
+  },
+  "custom/session": {
+    "format": "SESSION",
+    "tooltip": false,
+    "on-click": "simple-custom-arch-session-menu"
+  }
+}
