@@ -1,1 +1,3 @@
-# Populated during Phase 1.
+visual-studio-code-bin
+yay
+zen-browser-bin
