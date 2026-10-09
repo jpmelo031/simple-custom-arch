@@ -25,7 +25,7 @@ Every package, service, script, and visual effect must have a documented purpose
 
 ## Current Phase
 
-Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages is in progress. Its repository preparation is complete; package installation, cleanup, LTS boot validation, and the sanitized post-change baseline remain staged work. No Phase 2 configuration is active.
+Phases 0 through 4 are complete for the current notebook under the approved additive desktop scope. The package set, Hyprland module, desktop services, and Majula application configuration are deployed and verified. Phase 5 — Safe Update Experience is the next planned phase and has not started.
 
 ### Completed
 
@@ -40,16 +40,41 @@ Phase 0 — Project Foundation is complete. Phase 1 — Base System and Packages
 - Defined the Phase 1 desired package manifests and documented every package role.
 - Added isolated repository checks and read-only live-system verification for Phase 1.
 - Documented the weekly complete-upgrade and recovery procedure.
+- Installed the minimal desktop package set without Steam, Java, a second kernel, or boot changes.
+- Extended the existing Hyprland Lua configuration through one recoverable module import.
+- Added and activated Waybar, Hyprpaper, Hypridle, clipboard history, and Dunst for the graphical session.
+- Applied the Majula palette to Hyprland, Waybar, Rofi, Kitty, Dunst, Hyprlock, and VS Code.
+- Added physical numeric-keypad controls that do not depend on Num Lock or the broken top-row keys.
+
+## Added Keybindings
+
+The generated Hyprland bindings remain in place. The project adds:
+
+| Binding | Action |
+|---|---|
+| `Super + keypad 1` through `Super + keypad 9` | Open workspace 1 through 9 |
+| `Super + Shift + keypad 1` through `Super + Shift + keypad 9` | Move the active window to workspace 1 through 9 |
+| `Alt + keypad 8` / `Alt + keypad 2` | Increase / decrease brightness |
+| `Alt + keypad 6` / `Alt + keypad 4` | Increase / decrease volume |
+| `Alt + keypad 5` | Toggle output mute |
+| `Alt + keypad 0` | Play or pause media |
+| `Alt + keypad 9` / `Alt + keypad 7` | Next / previous media item |
+| `Super + B` | Open Zen Browser |
+| `Super + Shift + C` | Open VS Code |
+| `Super + L` | Lock the session |
+| `Super + Shift + V` | Open clipboard history |
+| `Print` / `Super + Alt + S` | Capture the full screen / select an area |
+| `Super + Shift + E` | Open the lock and logout menu |
 
 ## Roadmap
 
 | Phase | Focus | Status |
 |---:|---|---|
 | 0 | Project contract, repository structure, sanitized baseline, and recovery prerequisites | Complete |
-| 1 | Base system and package manifests | In progress |
-| 2 | Hyprland core and keybindings | Not started |
-| 3 | Desktop essentials | Not started |
-| 4 | Majula visual system implementation | Not started |
+| 1 | Base system and package manifests | Complete |
+| 2 | Hyprland core and keybindings | Complete |
+| 3 | Desktop essentials | Complete |
+| 4 | Majula visual system implementation | Complete |
 | 5 | Safe update experience | Not started |
 | 6 | Development environment | Not started |
 | 7 | Bootstrap and recovery automation | Not started |
@@ -66,6 +91,8 @@ Each phase is planned and verified before the next one begins. The future portab
 - [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)
 - [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
 - [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
+- [Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)
+- [Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)
 - [Majula theme reference](docs/theme.md)
 - [Majula theme preview](docs/assets/theme-preview.svg)
 - [Theme preview implementation plan](docs/superpowers/plans/2026-10-08-majula-theme-preview.md)
@@ -81,4 +108,4 @@ Each phase is planned and verified before the next one begins. The future portab
 
 ## Next Step
 
-Continue the approved Phase 1 implementation plan: capture a fresh recovery state, apply the complete package transactions, validate the system, and stop at the manual LTS reboot checkpoint.
+Design and approve Phase 5 before adding any automatic update check or package-management interface.

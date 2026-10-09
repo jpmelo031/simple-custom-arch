@@ -72,6 +72,18 @@ required_files=(
   README.md
   ROADMAP.md
   config/README.md
+  config/dunst/dunstrc
+  config/hypr/assets/majula-wallpaper.svg
+  config/hypr/hypridle.conf
+  config/hypr/hyprlock.conf
+  config/hypr/hyprpaper.conf
+  config/hypr/majula.lua
+  config/kitty/kitty.conf
+  config/rofi/config.rasi
+  config/rofi/majula.rasi
+  config/vscode/settings.json
+  config/waybar/config.jsonc
+  config/waybar/style.css
   docs/assets/theme-preview.svg
   docs/baseline/README.md
   docs/baseline/foreign-explicit.txt
@@ -80,15 +92,20 @@ required_files=(
   docs/baseline/services.md
   docs/maintenance.md
   docs/superpowers/plans/2026-10-08-phase-1-base-system.md
+  docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md
   docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md
+  docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md
   docs/theme.md
   packages/README.md
   packages/aur.txt
   packages/official.txt
   scripts/README.md
+  scripts/install-desktop
   scripts/lib/phase1-verify.sh
   scripts/verify
   tests/phase0-verify.sh
+  tests/desktop-config.sh
+  tests/install-desktop.sh
   tests/phase1-manifests.sh
   tests/phase1-verify.sh
 )

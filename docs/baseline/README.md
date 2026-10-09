@@ -1,12 +1,12 @@
 # System Baseline
 
-This directory records sanitized observations of the current notebook before project-managed configuration is deployed. Baseline files describe what exists; package manifests under `packages/` describe the desired state.
+This directory records sanitized observations of the current notebook. Baseline files describe what exists; package manifests under `packages/` describe the desired state.
 
 ## Capture
 
-- Date: 2026-10-08
+- Date: 2026-10-09
 - Target: Samsung 300E5M/300E5L notebook
-- Scope: hardware summary, explicit package names, failed units, and essential session state
+- Scope: hardware summary, explicit package names, failed units, essential session state, and additive desktop services
 - Method: read-only local inspection
 
 ## Files
@@ -41,4 +41,4 @@ Raw command output is inspected but never copied into the repository.
 
 Exclude credentials, user names, home-directory paths, hostnames, IP and MAC addresses, hardware serial numbers, disk and partition identifiers, filesystem UUIDs, raw logs, environment variables, and personal application data.
 
-Update this baseline only through a dedicated commit that identifies why the observed machine state changed. Never edit it silently alongside desired configuration.
+Update this baseline only as a documented part of the system change that produced the observed state. Never include raw diagnostic output.

@@ -28,11 +28,11 @@ This roadmap turns the approved design into ordered, verifiable phases. Only one
 - The user-approved palette remains unchanged.
 - The Phase 0 verifier passes without modifying the system.
 
-### Phase 1 — Base System and Packages — In progress
+### Phase 1 — Base System and Packages — Complete
 
-**Status:** In progress
+**Status:** Complete
 
-Repository preparation is complete. System changes remain staged behind fresh backups, a complete official transaction, validation, and the manual LTS boot checkpoint.
+The user-approved reduced package scope is installed and verified. It deliberately excludes Steam, Java, a second kernel, boot configuration work, package cleanup, and optional diagnostics from the earlier draft.
 
 **Goal:** Define and validate the smallest dependable package set for the notebook.
 
@@ -42,8 +42,8 @@ Repository preparation is complete. System changes remain staged behind fresh ba
 - Define explicit official and AUR manifests with a documented role for each package.
 - Validate firmware, graphics, audio, network, fonts, and maintenance tools.
 - Establish the safe manual update procedure.
-- Identify redundant and orphaned packages.
-- Add the regular and LTS kernel recovery paths and validate both.
+- Report redundant and orphaned packages without removing them.
+- Preserve the existing regular kernel and boot configuration.
 
 **Rule:** Prefer official packages, never perform partial upgrades, and install only packages with a documented purpose.
 
@@ -54,21 +54,24 @@ Repository preparation is complete. System changes remain staged behind fresh ba
 - Network, audio, and Intel graphics work.
 - Failed services are fixed or explicitly documented.
 - No package is removed without approval.
+- The approved desktop commands are available without an additional kernel or gaming stack.
 
 **Execution references:**
 
 - [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
 - [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
+- [Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)
+- [Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)
 
-### Phase 2 — Hyprland Core — Not started
+### Phase 2 — Hyprland Core — Complete
 
-**Status:** Not started
+**Status:** Complete
 
 **Goal:** Create a stable, compact Hyprland session for the target display and hardware.
 
 **Scope:**
 
-- Split the generated Hyprland configuration into focused files.
+- Preserve the generated Hyprland configuration and load one focused project module.
 - Configure display, input, workspaces, and window behavior.
 - Define and document every keybinding.
 - Optimize the layout for 1366x768.
@@ -82,9 +85,9 @@ Repository preparation is complete. System changes remain staged behind fresh ba
 - Volume, brightness, and media keys work.
 - Reloading or restarting Hyprland preserves a usable session.
 
-### Phase 3 — Desktop Essentials — Not started
+### Phase 3 — Desktop Essentials — Complete
 
-**Status:** Not started
+**Status:** Complete
 
 **Goal:** Add one reliable component for each essential desktop responsibility.
 
@@ -104,9 +107,9 @@ Repository preparation is complete. System changes remain staged behind fresh ba
 - User services have no unexplained failures.
 - Project-added persistent desktop components remain within the 250 MiB idle memory budget.
 
-### Phase 4 — Majula Visual System — Not started
+### Phase 4 — Majula Visual System — Complete
 
-**Status:** Not started
+**Status:** Complete
 
 **Goal:** Apply the approved Majula visual language consistently across the desktop.
 

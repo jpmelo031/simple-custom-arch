@@ -20,12 +20,12 @@ if [[ ! -x "$verifier" ]]; then
   fail "scripts/verify must exist and be executable"
 fi
 
-if ! rg -q '^Completed phase: \*\*Phase 0 — Project Foundation\*\*\.$' "$project_root/AGENTS.md"; then
+if ! rg -q '^Completed phases?: .*Phase 0' "$project_root/AGENTS.md"; then
   fail "AGENTS.md must identify Phase 0 as complete"
 fi
 
-if ! rg -q '^Active phase: \*\*Phase 1 — Base System and Packages\*\*\.$' "$project_root/AGENTS.md"; then
-  fail "AGENTS.md must identify Phase 1 as active"
+if ! rg -q '^(Active phase|Next planned phase):' "$project_root/AGENTS.md"; then
+  fail "AGENTS.md must identify the active or next planned phase"
 fi
 
 new_fixture() {

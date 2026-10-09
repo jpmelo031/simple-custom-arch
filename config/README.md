@@ -1,15 +1,15 @@
 # Configuration Sources
 
-This directory will contain the versioned source for user configuration. Phase 0 reserves these paths only and does not deploy or replace any configuration on the running system.
+This directory contains versioned sources for the additive desktop configuration. `scripts/install-desktop` links individual files into their XDG destinations and leaves unrelated files and complete configuration directories intact.
 
 | Directory | Responsibility |
 |---|---|
-| `hypr/` | Hyprland display, input, workspace, window, and binding configuration |
+| `hypr/` | Additive Hyprland appearance and bindings, lock, idle, wallpaper, and wallpaper source |
 | `kitty/` | Kitty terminal behavior and appearance |
 | `rofi/` | Application launcher and update-choice interface |
 | `dunst/` | Desktop notification behavior and appearance |
 | `waybar/` | Status bar modules, layout, and styling |
-| `vscode/` | Reproducible editor settings and extension manifest |
+| `vscode/` | Reproducible editor settings |
 | `shell/` | Interactive shell configuration shared by project-managed sessions |
 
-Later phase plans must document destinations, dependencies, backup behavior, and verification before adding deployable files.
+The generated `~/.config/hypr/hyprland.lua` remains the primary configuration. Deployment backs it up and appends one `require("majula")` statement. An existing unrelated destination causes deployment to stop instead of replacing it.

@@ -133,7 +133,7 @@ Inspect destination
 - Leave a correct symlink unchanged.
 - Report broken links instead of silently replacing them.
 - Store backups outside the repository under `~/.local/state/simple-custom-arch/backups/<timestamp>/`.
-- Discover the repository root dynamically; do not hard-code `/home/ujuuj`.
+- Discover the repository root dynamically; do not hard-code a user's home directory.
 - Deploy system files under `/etc` through a separate privileged operation that copies files after backup. System files must not link into the user's home directory.
 - Keep machine-specific values in a dedicated Hyprland include rather than shared configuration.
 

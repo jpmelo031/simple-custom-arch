@@ -10,6 +10,8 @@ roadmap="$project_root/ROADMAP.md"
 agents="$project_root/AGENTS.md"
 phase1_spec="$project_root/docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md"
 phase1_plan="$project_root/docs/superpowers/plans/2026-10-08-phase-1-base-system.md"
+desktop_spec="$project_root/docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md"
+desktop_plan="$project_root/docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md"
 
 if [[ "$mode" != in-progress && "$mode" != complete ]]; then
   printf 'Usage: %s in-progress|complete\n' "${0##*/}" >&2
@@ -34,7 +36,7 @@ for heading in \
   '### 3. Reviewed Foreign Packages' \
   '### 4. Review `.pacnew` Files' \
   '### 5. Validate the Updated System' \
-  '### 6. Retain the Package Cache' \
+  '### 6. Preserve Recovery Data' \
   '### 7. Recovery and Failure Stops'; do
   line="$(rg -n -F -m 1 -- "$heading" "$maintenance" | cut -d: -f1 || true)"
   [[ -n "$line" ]] || fail "docs/maintenance.md is missing ordered section: $heading"
@@ -42,16 +44,15 @@ for heading in \
   previous_line=$line
 done
 
-for command in 'pacman -Syu' 'yay -Sua' 'pacdiff' 'paccache -rk2'; do
+for command in 'pacman -Syu' 'yay -Sua' "find /etc -type f -name '*.pacnew' -print"; do
   require_text "$maintenance" "$command"
 done
 
 require_text "$maintenance" '~/.local/state/simple-custom-arch/backups/'
 require_text "$maintenance" 'Never reboot or shut down automatically.'
-require_text "$maintenance" 'ext4 does not provide a filesystem snapshot for this procedure'
 require_text "$maintenance" 'Inspect `/var/lib/pacman/db.lck`'
-require_text "$maintenance" 'Phase 1 design specification'
-require_text "$maintenance" 'Phase 1 implementation plan'
+require_text "$maintenance" 'additive desktop design specification'
+require_text "$maintenance" 'implementation plan'
 
 if rg -n '^[[:space:]]*(sudo[[:space:]]+)?pacman[[:space:]]+-Sy([[:space:]]|$)' "$maintenance" >/dev/null; then
   fail 'docs/maintenance.md must not present pacman -Sy as a runnable command'
@@ -63,10 +64,15 @@ require_text "$roadmap" '[Phase 1 design specification](docs/superpowers/specs/2
 require_text "$roadmap" '[Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)'
 require_text "$agents" '[Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)'
 require_text "$agents" '[Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)'
+require_text "$readme" '[Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)'
+require_text "$readme" '[Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)'
+require_text "$roadmap" '[Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)'
+require_text "$roadmap" '[Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)'
+require_text "$agents" '[Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)'
+require_text "$agents" '[Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)'
 
-for document in "$phase1_spec" "$phase1_plan"; do
-  require_text "$document" 'arch-linux.efi'
-  require_text "$document" 'arch-linux-lts.efi'
+for document in "$phase1_spec" "$phase1_plan" "$desktop_spec" "$desktop_plan"; do
+  [[ -f "$document" ]] || fail "missing ${document#"$project_root/"}"
 done
 
 case "$mode" in
@@ -83,13 +89,16 @@ case "$mode" in
     require_text "$agents" 'Phase 2 remains not started'
     ;;
   complete)
-    require_text "$readme" 'Phase 1 — Base System and Packages is complete.'
     require_text "$readme" '| 1 | Base system and package manifests | Complete |'
-    require_text "$readme" '| 2 | Hyprland core and keybindings | Planned |'
+    require_text "$readme" '| 2 | Hyprland core and keybindings | Complete |'
+    require_text "$readme" '| 3 | Desktop essentials | Complete |'
+    require_text "$readme" '| 4 | Majula visual system implementation | Complete |'
     require_text "$roadmap" '### Phase 1 — Base System and Packages — Complete'
-    require_text "$roadmap" '### Phase 2 — Hyprland Core — Planned'
-    require_text "$agents" 'Completed phase: **Phase 1 — Base System and Packages**.'
-    require_text "$agents" 'Next planned phase: **Phase 2 — Hyprland Core and Keybindings**.'
+    require_text "$roadmap" '### Phase 2 — Hyprland Core — Complete'
+    require_text "$roadmap" '### Phase 3 — Desktop Essentials — Complete'
+    require_text "$roadmap" '### Phase 4 — Majula Visual System — Complete'
+    require_text "$agents" 'Completed phases: **Phase 0 through Phase 4**.'
+    require_text "$agents" 'Next planned phase: **Phase 5 — Safe Update Experience**.'
     ;;
 esac
 

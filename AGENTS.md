@@ -90,13 +90,15 @@ Do not skip a step. Phase 0 is repository-only work and must not alter the runni
 
 ## Phase Status
 
-Completed phase: **Phase 0 — Project Foundation**.
+Completed phases: **Phase 0 through Phase 4**.
 
-Active phase: **Phase 1 — Base System and Packages**.
+Next planned phase: **Phase 5 — Safe Update Experience**.
 
-The approved Phase 1 plan is being executed in ordered gates. Repository preparation is complete; system changes require fresh local backups and the plan's stop conditions. Phase 2 remains not started, and no Phase 2 configuration may be added while Phase 1 is active.
+The approved additive desktop plan is complete. It supersedes the earlier Steam, Java, second-kernel, boot-recovery, and package-cleanup scope. No Phase 5 implementation may begin without its own approved plan.
 
 - [Design specification](docs/superpowers/specs/2026-10-08-simple-custom-arch-design.md)
 - [Phase 0 implementation plan](docs/superpowers/plans/2026-10-08-phase-0-project-foundation.md)
 - [Phase 1 design specification](docs/superpowers/specs/2026-10-08-phase-1-base-system-design.md)
 - [Phase 1 implementation plan](docs/superpowers/plans/2026-10-08-phase-1-base-system.md)
+- [Additive desktop design specification](docs/superpowers/specs/2026-10-09-additive-desktop-configuration-design.md)
+- [Additive desktop implementation plan](docs/superpowers/plans/2026-10-09-additive-desktop-configuration.md)
