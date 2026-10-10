@@ -40,7 +40,7 @@ System-wide font sizes remain unchanged. Applications should hide redundant nati
 | Hyprland | `background` for the desktop, `border` for inactive windows, and `ember` for the focused border. |
 | Waybar | `surface` base, `accent` active workspace, `text` primary modules, and `muted` secondary state. |
 | Rofi | `elevated` dialog, `accent` selection, `ember` important action, and `danger` destructive-state marker. |
-| Kitty | `background` canvas, `text` output, `muted` prompts, and semantic colors for update results. |
+| Kitty | `background` canvas at 84% opacity, `text` output, `muted` prompts, and semantic colors for update results. |
 | Dunst | `elevated` notification, `info` status marker, `text` title, and `muted` details. |
 | VS Code | `background` editor, `surface` chrome and sidebar, `elevated` active tab, and restrained semantic syntax colors. |
 | GTK 3/4 | `surface` windows, `background` views, `elevated` controls, `accent` selection, and `border` separators. |
