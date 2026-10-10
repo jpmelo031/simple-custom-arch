@@ -1,7 +1,7 @@
 {
     "window.titleBarStyle": "custom",
     "window.menuBarVisibility": "toggle",
-    "workbench.colorTheme": "Default Dark Modern",
+    "workbench.colorTheme": "Dark Modern",
     "workbench.colorCustomizations": {
         "editor.background": "#0E1114",
         "editor.foreground": "#DDD6C6",
