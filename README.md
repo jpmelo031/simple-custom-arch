@@ -43,6 +43,7 @@ Phases 0 through 4 are complete for the current notebook under the approved addi
 - Installed the minimal desktop package set without Steam, Java, a second kernel, or boot changes.
 - Extended the existing Hyprland Lua configuration through one recoverable module import.
 - Added and activated Waybar, Hyprpaper, Hypridle, clipboard history, and Dunst for the graphical session.
+- Kept Waybar compact with audio, tray, and a confirmed shutdown or restart menu.
 - Applied the Majula palette to Hyprland, Waybar, Rofi, Kitty, Dunst, Hyprlock, and VS Code.
 - Added physical numeric-keypad controls that do not depend on Num Lock or the broken top-row keys.
 

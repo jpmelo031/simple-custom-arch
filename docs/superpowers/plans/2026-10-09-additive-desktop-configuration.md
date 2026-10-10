@@ -301,3 +301,20 @@ git commit -m "docs: record additive desktop deployment"
 ```
 
 Keep every commit local. Report the backup directory, installed package set, active services, validation evidence, and any action that still requires a new graphical login.
+
+### Task 6: Simplify Waybar and Add Confirmed Power Controls
+
+**Files:**
+- Modify: `config/waybar/config.jsonc`
+- Modify: `config/waybar/style.css`
+- Create: `scripts/session/power-menu`
+- Modify: `scripts/install-desktop`
+- Modify: `tests/desktop-config.sh`
+- Modify: `tests/install-desktop.sh`
+- Create: `tests/power-menu.sh`
+
+- [x] Remove the network, Bluetooth, backlight, CPU, memory, and session modules from Waybar.
+- [x] Add one Majula power button that opens a Rofi shutdown or restart menu.
+- [x] Require and fixture-test a second confirmation before either system power action.
+- [x] Add the power-menu link to the additive deployer and its fixture contract.
+- [x] Run repository tests, deploy the new link, restart Waybar, and verify the live bar.

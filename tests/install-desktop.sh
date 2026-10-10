@@ -56,6 +56,7 @@ managed_paths=(
   .config/dunst/dunstrc
   .config/Code/User/settings.json
   .local/bin/simple-custom-arch-clipboard-menu
+  .local/bin/simple-custom-arch-power-menu
   .local/bin/simple-custom-arch-session-menu
   .local/bin/simple-custom-arch-screenshot
   .config/systemd/user/simple-custom-arch-session.target

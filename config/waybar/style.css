@@ -32,14 +32,9 @@ window#waybar {
 
 #window,
 #clock,
-#network,
-#bluetooth,
 #pulseaudio,
-#backlight,
-#cpu,
-#memory,
 #tray,
-#custom-session {
+#custom-power {
   padding: 0 8px;
 }
 
@@ -47,27 +42,15 @@ window#waybar {
   color: #D1A35C;
 }
 
-#network,
-#bluetooth {
-  color: #7899A2;
-}
-
-#pulseaudio,
-#backlight {
+#pulseaudio {
   color: #DDD6C6;
 }
 
-#cpu,
-#memory {
-  color: #87996D;
-}
-
-#pulseaudio.muted,
-#network.disconnected {
+#pulseaudio.muted {
   color: #C06452;
 }
 
-#custom-session {
+#custom-power {
   color: #E0783E;
   background: #20272C;
 }
