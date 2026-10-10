@@ -344,3 +344,27 @@ Keep every commit local. Report the backup directory, installed package set, act
 - [x] Add application actions, visible mode navigation, fuzzy matching, and `Super + keypad 0` access.
 - [x] Deploy the new sources, apply the preferences, reload Hyprland, and verify Rofi and Dolphin live.
 - [x] Run the full repository and live-system verification.
+
+### Task 8: Prepare the Completed Desktop for Publication
+
+**Files:**
+- Modify: `README.md`
+- Modify: `packages/README.md`
+- Modify: `packages/official.txt`
+- Modify: `packages/aur.txt`
+- Modify: `scripts/README.md`
+- Modify: `scripts/install-desktop`
+- Modify: `scripts/lib/phase1-verify.sh`
+- Modify: `scripts/verify`
+- Modify: `tests/phase1-docs.sh`
+- Modify: `tests/phase1-manifests.sh`
+- Modify: `tests/phase1-verify.sh`
+- Create: `tests/verify.sh`
+- Remove: redundant tracked `.gitkeep` placeholders
+
+- [x] Limit package manifests to direct dependencies used by the deployed desktop and document validation-only tools separately.
+- [x] Remove the deployer's runtime dependency on Ripgrep by using GNU grep for the exact Hyprland import check.
+- [x] Consolidate installation, keybindings, services, appearance, backup, recovery, and verification guidance in the main README.
+- [x] Update the preview and theme reference to match six-pixel gaps, 84% Kitty opacity, the simplified Waybar, and the current Rofi launcher.
+- [x] Preserve phase history and recovery documentation while removing redundant directory placeholders.
+- [x] Add isolated repository-verifier coverage and run the complete repository and live-session checks before requesting push approval.

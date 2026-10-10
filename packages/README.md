@@ -1,82 +1,61 @@
-# Package Manifests
+# Dependencies
 
-The package manifests describe the intended explicitly installed system. They are separate from the observed package snapshots under `docs/baseline/`.
+These manifests contain only direct dependencies used by the deployed desktop configuration. They do not mirror the whole operating system and do not include the kernel, bootloader, firmware, package helpers, diagnostics, or unrelated applications.
 
-## Manifest Rules
+## Rules
 
-- `official.txt` contains packages available from configured official repositories.
-- `aur.txt` contains reviewed foreign packages. Foreign means absent from the active official repositories; it does not automatically mean the package came from the AUR.
-- Readers ignore blank lines and lines beginning with `#`.
-- Package entries use one name per line and remain sorted and unique.
-- Pacman resolves transitive dependencies; the manifests record only the desired explicit packages.
+- `official.txt` contains direct runtime dependencies from the configured Arch Linux repositories.
+- `aur.txt` contains reviewed foreign applications referenced by project settings or keybindings.
+- Blank lines and lines beginning with `#` are ignored.
+- Entries remain sorted, unique, and limited to packages with a documented responsibility.
+- Pacman resolves transitive dependencies; those packages are not duplicated here.
+- Always install official dependencies with a complete upgrade. Never run `pacman -Sy` by itself.
 
-## Core and Boot
-
-| Packages | Responsibility |
-| --- | --- |
-| `base`, `base-devel`, `sudo` | Core Arch userspace, build tools, and privileged command delegation. |
-| `linux`, `linux-firmware`, `intel-ucode` | Primary kernel, device firmware, and Intel CPU microcode. |
-| `mkinitcpio`, `limine`, `efibootmgr` | Initramfs generation and UEFI boot management. |
-| `zram-generator` | Compressed swap setup for the notebook's limited resources. |
-
-## Hardware and Intel Graphics
+## Desktop Runtime
 
 | Packages | Responsibility |
-| --- | --- |
-| `intel-media-driver`, `libva-intel-driver` | Current Intel VA-API driver and retained compatibility driver. |
-| `libvpl`, `vpl-gpu-rt` | Intel oneVPL video processing runtime. |
-| `vulkan-intel` | Native Intel Vulkan driver. |
-| `brightnessctl` | Backlight control for the numeric-keypad brightness bindings. |
-| `smartmontools` | Storage health diagnostics. |
+|---|---|
+| `hyprland`, `uwsm` | Wayland compositor and managed session used by the additive Lua module and logout action. |
+| `waybar` | Compact workspace, window, clock, audio, and tray bar. |
+| `rofi` | Application, window, command, file, clipboard, and session menus. |
+| `kitty` | Terminal with the Majula palette and translucent background. |
+| `dunst` | Desktop notifications. |
+| `hyprlock`, `hypridle`, `hyprpaper` | Lock screen, idle behavior, and wallpaper. |
+| `wl-clipboard`, `cliphist` | Clipboard capture, storage, and restore. |
+| `grim`, `slurp`, `xdg-user-dirs` | Full-screen and area screenshots saved in the user's pictures directory. |
+| `brightnessctl`, `playerctl`, `wireplumber`, `pipewire-pulse` | Brightness, media, volume, and mute keybindings plus Waybar audio state. |
+| `network-manager-applet` | Network menu shown through the Waybar tray. |
+| `dolphin`, `qt6-wayland` | Qt file manager and native Wayland support for the KDE color scheme. |
 
-## Network, Bluetooth, Audio, and Security
-
-| Packages | Responsibility |
-| --- | --- |
-| `networkmanager`, `network-manager-applet`, `wpa_supplicant` | Network control, graphical status integration, and Wi-Fi authentication. |
-| `bluez`, `bluez-utils` | Bluetooth service and command-line tools. |
-| `pipewire`, `pipewire-alsa`, `pipewire-pulse`, `pipewire-jack` | Unified audio service and ALSA, PulseAudio, and JACK compatibility. |
-| `wireplumber`, `gst-plugin-pipewire`, `libpulse` | PipeWire policy, GStreamer integration, and PulseAudio client compatibility. |
-| `ufw` | Host firewall management. |
-
-## Hyprland Prerequisites
+## Theme Assets and Toolkits
 
 | Packages | Responsibility |
-| --- | --- |
-| `hyprland`, `uwsm` | Wayland compositor and session management. |
-| `xdg-desktop-portal-hyprland`, `xdg-user-dirs`, `xdg-utils` | Desktop portals, standard user directories, and desktop integration helpers. |
-| `polkit-kde-agent` | Graphical PolicyKit authentication agent. |
-| `qt5-wayland`, `qt6-wayland` | Native Wayland support for Qt applications. |
-| `sddm` | Graphical login manager. |
-| `dunst`, `rofi`, `grim`, `slurp` | Notifications, application launcher, and screenshot selection tools. |
-| `waybar` | Compact status bar for workspaces and essential system state. |
-| `hyprlock`, `hypridle`, `hyprpaper` | Screen locking, idle behavior, and the project wallpaper. |
-| `wl-clipboard`, `cliphist` | Wayland clipboard commands and persistent session history. |
+|---|---|
+| `glib2` | Provides the `gsettings` preference interface used by `apply-theme`. GTK applications consume the project CSS through their own GTK runtime dependencies. |
+| `breeze-icons` | Dark icon theme used by GTK, Qt, Rofi, and Dolphin. |
+| `adwaita-cursors` | Cursor theme selected across the session. |
+| `noto-fonts` | Font family referenced by Waybar, Rofi, Dunst, and Hyprlock. |
+| `librsvg` | Provides `rsvg-convert` to render the versioned wallpaper SVG during deployment. |
 
-The additive desktop deployment uses these packages without replacing the generated Hyprland configuration.
+## Reviewed Foreign Applications
 
-## Applications and Fonts
+| Package | Source and responsibility |
+|---|---|
+| `visual-studio-code-bin` | AUR recipe for Microsoft's binary VS Code release; consumes the project-owned editor settings and the `Super + Shift + C` binding. |
+| `zen-browser-bin` | AUR recipe for the upstream Zen Browser binary; target of the `Super + B` binding. |
 
-| Packages | Responsibility |
-| --- | --- |
-| `kitty`, `dolphin` | Terminal emulator and graphical file manager. |
-| `nano`, `neovim` | Retained terminal text editors. |
-| `noto-fonts`, `noto-fonts-cjk`, `noto-fonts-emoji` | General, CJK, and emoji coverage for applications and websites. |
-| `ttf-dejavu`, `ttf-liberation` | Compatible fallback fonts for common documents and web content. |
+The repository does not require a specific AUR helper. Review each PKGBUILD before installing a foreign package.
 
-## Maintenance and Diagnostics
+## Verification Tools
 
-| Packages | Responsibility |
-| --- | --- |
-| `git` | Source control for the project repository. |
-| `wget` | Direct file retrieval for reviewed sources. |
-| `htop` | Interactive process and resource inspection. |
-| `playerctl` | Browser and media-player MPRIS controls for desktop key bindings. |
+Repository verification additionally uses `file`, `git`, `libxml2` for `xmllint`, `python`, and `ripgrep`. Bash, GNU core utilities, GNU grep, and systemd are assumed to come from the normal Arch base installation.
 
-## Reviewed Foreign Packages
+## Installation
 
-| Package | Responsibility |
-| --- | --- |
-| `visual-studio-code-bin` | Visual Studio Code binary distribution used as the graphical editor. |
-| `yay` | Reviewed helper for updating foreign packages after official upgrades. |
-| `zen-browser-bin` | Zen Browser binary distribution. |
+Review the manifests, then run one complete official transaction:
+
+```bash
+sudo pacman -Syu --needed $(< packages/official.txt)
+```
+
+Install the reviewed foreign applications separately with a trusted, locally installed build workflow. The project never pipes remote content into a shell and never installs packages from its deployment script.

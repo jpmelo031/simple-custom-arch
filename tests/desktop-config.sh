@@ -135,6 +135,11 @@ rg -Fq -- 'mainMod .. " + SHIFT + code:" .. code' "$project_root/config/hypr/maj
 rg -Fq -- 'mainMod .. " + code:90"' "$project_root/config/hypr/majula.lua" ||
   fail 'Rofi must be available on Super plus keypad 0'
 
+for gap in 'gaps_in = 6' 'gaps_out = 6'; do
+  rg -Fq -- "$gap" "$project_root/config/hypr/majula.lua" ||
+    fail "Hyprland must use six-pixel gaps: $gap"
+done
+
 for binding in \
   'ALT + code:80' 'ALT + code:88' \
   'ALT + code:85' 'ALT + code:83' 'ALT + code:84' \
@@ -142,6 +147,19 @@ for binding in \
   rg -Fq -- "$binding" "$project_root/config/hypr/majula.lua" ||
     fail "missing keypad control binding: $binding"
 done
+
+for command_name in \
+  zen-browser code loginctl simple-custom-arch-clipboard-menu \
+  simple-custom-arch-screenshot simple-custom-arch-session-menu; do
+  rg -Fq -- "$command_name" "$project_root/config/hypr/majula.lua" ||
+    fail "missing application binding command: $command_name"
+done
+
+rg -Fq -- 'background_opacity 0.84' "$project_root/config/kitty/kitty.conf" ||
+  fail 'Kitty must use 84% background opacity'
+rg -Fq -- '"workbench.colorTheme": "Dark Modern"' \
+  "$project_root/config/vscode/settings.json" ||
+  fail 'VS Code must use its built-in Dark Modern base theme'
 
 if rg -ni '(systemctl[[:space:]]+(suspend|hibernate|reboot|poweroff)|loginctl[[:space:]]+(suspend|hibernate|reboot|poweroff)|shutdown([[:space:]]|$)|reboot([[:space:]]|$))' \
   "$project_root/config" "$project_root/scripts/session" "$project_root/systemd/user"; then

@@ -37,7 +37,7 @@ Only after the official transaction succeeds, update the reviewed foreign packag
 yay -Sua
 ```
 
-The reviewed desired set is `visual-studio-code-bin`, `yay`, and `zen-browser-bin`. Stop if Yay proposes an unreviewed package or an unplanned removal. Report temporary build dependencies as orphans without removing them automatically.
+The reviewed foreign applications used by the desktop are `visual-studio-code-bin` and `zen-browser-bin`. Yay is a local maintenance tool rather than a theme dependency. Stop if Yay proposes an unreviewed package or an unplanned removal. Report temporary build dependencies as orphans without removing them automatically.
 
 ### 4. Review `.pacnew` Files
 

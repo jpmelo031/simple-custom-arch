@@ -31,6 +31,8 @@ Perform one complete official upgrade and install only these missing official pa
 
 Install the reviewed foreign package `visual-studio-code-bin` with Yay after the official transaction succeeds.
 
+For publication, `packages/official.txt` records every direct runtime dependency of the deployed desktop rather than the notebook's complete installed package set. `packages/aur.txt` records only the two foreign applications referenced by configuration or keybindings. Validation-only tools are documented separately in `packages/README.md`.
+
 The complete official transaction may update already installed packages, including the existing regular kernel, as required by Arch Linux's full-upgrade model. It must not install another kernel or change boot configuration.
 
 Do not install Steam, Prism Launcher, Java, 32-bit graphics providers, diagnostic packages, or package-maintenance tools merely because they appeared in the earlier Phase 1 manifest. Do not remove any installed package.
@@ -95,7 +97,7 @@ Configure a compact dark launcher using the Majula palette with explicit backgro
 
 ### Kitty, Dunst, and VS Code
 
-Add standalone configuration files using the exact Majula semantic colors. Kitty keeps a compact tab bar and native Wayland behavior. Dunst uses labeled urgency states and restrained geometry. VS Code receives project-owned user settings only because no existing settings file was found.
+Add standalone configuration files using the exact Majula semantic colors. Kitty keeps a compact tab bar, native Wayland behavior, and 84% background opacity. Dunst uses labeled urgency states and restrained geometry. VS Code receives project-owned user settings only because no existing settings file was found.
 
 ### Lock, Idle, Wallpaper, and Clipboard
 

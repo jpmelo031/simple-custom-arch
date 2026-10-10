@@ -8,8 +8,8 @@ Majula is a low-glare visual system built from dark stone, deep sea tones, aged 
 
 | Element | Size | Purpose |
 |---|---:|---|
-| Outer screen gap | `4 px` | Preserve a visible frame without sacrificing useful space. |
-| Tiled window gap | `4 px` | Separate windows while keeping the layout dense. |
+| Outer screen gap | `6 px` | Preserve a visible frame without sacrificing useful space. |
+| Tiled window gap | `6 px` | Separate windows while keeping the layout dense. |
 | Inactive border | `1 px` | Mark window boundaries with minimal visual weight. |
 | Focused border | `2 px` | Show focus without reducing the usable content area. |
 | Application title bar | `24 px` maximum | Keep window identity and controls compact. |
@@ -40,18 +40,17 @@ System-wide font sizes remain unchanged. Applications should hide redundant nati
 | Hyprland | `background` for the desktop, `border` for inactive windows, and `ember` for the focused border. |
 | Waybar | `surface` base, `accent` active workspace, `text` primary modules, and `muted` secondary state. |
 | Rofi | `elevated` dialog, `accent` selection, `ember` important action, and `danger` destructive-state marker. |
-| Kitty | `background` canvas at 84% opacity, `text` output, `muted` prompts, and semantic colors for update results. |
+| Kitty | `background` canvas at 84% opacity, `text` output, `muted` prompts, and semantic colors for terminal status. |
 | Dunst | `elevated` notification, `info` status marker, `text` title, and `muted` details. |
 | VS Code | `background` editor, `surface` chrome and sidebar, `elevated` active tab, and restrained semantic syntax colors. |
 | GTK 3/4 | `surface` windows, `background` views, `elevated` controls, `accent` selection, and `border` separators. |
 | Qt/KDE | The same window, view, control, selection, and semantic mappings through the Majula color scheme. |
-| Updater | `info` for checks, `ember` for progress, `success` for completion, and `danger` plus a symbol for failure. |
 
 ## Preview
 
 ![Majula palette applied to a Hyprland desktop, VS Code, Kitty, Rofi, and Dunst](assets/theme-preview.svg)
 
-The preview is rendered at the notebook's native 1366x768 resolution. It is a visual baseline for later application configuration rather than a screenshot of the finished desktop.
+The preview is rendered at the target 1366x768 resolution and reflects the deployed components, compact geometry, and current Majula palette.
 
 ## Rules
 

@@ -89,7 +89,7 @@ fi
 [[ -n "$current_hostname" ]] || fail "could not determine the current hostname for the sensitive-data test"
 
 fixture="$(new_fixture)"
-printf '\n/home/alice/private\n%s\n' "$current_hostname" >> "$fixture/docs/baseline/hardware.md"
+printf '\n/%s/%s/private\n%s\n' home example "$current_hostname" >> "$fixture/docs/baseline/hardware.md"
 expect_fail_containing \
   "sensitive baseline data" \
   "sensitive data" \

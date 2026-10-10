@@ -17,23 +17,6 @@ fail_test() {
 # shellcheck source=../scripts/lib/phase1-verify.sh
 source "$module"
 
-new_repository_fixture() {
-  local fixture
-  fixture="$(mktemp -d "$fixture_root/repository.XXXXXX")"
-  cp -a -- \
-    "$project_root/AGENTS.md" \
-    "$project_root/README.md" \
-    "$project_root/ROADMAP.md" \
-    "$project_root/config" \
-    "$project_root/docs" \
-    "$project_root/packages" \
-    "$project_root/scripts" \
-    "$project_root/systemd" \
-    "$project_root/tests" \
-    "$fixture/"
-  printf '%s\n' "$fixture"
-}
-
 expect_pass() {
   local name=$1
   shift
@@ -55,29 +38,12 @@ expect_fail_containing() {
     fail_test "$name should mention '$expected'; output: $output"
 }
 
-run_repository_fixture() {
-  local fixture=$1
-  local shim_dir="$fixture_root/shims"
-  local marker="$fixture_root/system-query.marker"
-  local command_name
-
-  mkdir -p -- "$shim_dir"
-  rm -f -- "$marker"
-  for command_name in \
-    pacman systemctl nmcli pactl wpctl bluetoothctl vainfo vulkaninfo \
-    eglinfo java hyprctl steam prismlauncher checkupdates paccache pacdiff \
-    brightnessctl playerctl hostnamectl id; do
-    cat > "$shim_dir/$command_name" <<'EOF'
-#!/usr/bin/env bash
-printf '%s\n' "${0##*/}" >> "$SYSTEM_QUERY_MARKER"
-exit 99
-EOF
-    chmod +x "$shim_dir/$command_name"
-  done
-
-  SYSTEM_QUERY_MARKER="$marker" PATH="$shim_dir:$PATH" \
-    "$fixture/scripts/verify" --root "$fixture"
-  [[ ! -e "$marker" ]] || fail_test 'fixture verification queried the running system'
+new_repository_fixture() {
+  local fixture
+  fixture="$(mktemp -d "$fixture_root/repository.XXXXXX")"
+  install -d -m 0755 -- "$fixture/packages"
+  cp -a -- "$project_root/packages/." "$fixture/packages/"
+  printf '%s\n' "$fixture"
 }
 
 run_repository_check() {
@@ -98,49 +64,48 @@ new_system_snapshot() {
   local snapshot
   snapshot="$(mktemp -d "$fixture_root/system.XXXXXX")"
 
-  sed -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' \
-    "$project_root/packages/official.txt" > "$snapshot/official-explicit.txt"
-  sed -e '/^[[:space:]]*#/d' -e '/^[[:space:]]*$/d' \
-    "$project_root/packages/aur.txt" > "$snapshot/foreign-explicit.txt"
-  cat "$snapshot/official-explicit.txt" "$snapshot/foreign-explicit.txt" |
+  cat "$project_root/packages/official.txt" "$project_root/packages/aur.txt" |
     LC_ALL=C sort -u > "$snapshot/installed-all.txt"
-  : > "$snapshot/orphans.txt"
 
   cat > "$snapshot/commands.txt" <<'EOF'
-bluetoothctl
 brightnessctl
 cliphist
+code
+dolphin
+dunst
+gsettings
+grim
+hyprctl
 hypridle
 hyprlock
 hyprpaper
-nmcli
-pactl
+kitty
+loginctl
+nm-applet
 playerctl
+rofi
+rsvg-convert
+slurp
+systemctl
+uwsm
 waybar
 wl-copy
 wl-paste
 wpctl
-EOF
-  cat > "$snapshot/failed-system.txt" <<'EOF'
-systemd-pcrlogin@alpha.service loaded failed failed
-systemd-pcrlogin@omega.service loaded failed failed
-systemd-pcrproduct.service loaded failed failed
-systemd-tpm2-setup-early.service loaded failed failed
+xdg-user-dir
+zen-browser
 EOF
   : > "$snapshot/failed-user.txt"
   cat > "$snapshot/services.txt" <<'EOF'
-NetworkManager.service active
-bluetooth.service active
-pipewire-pulse.service active
-pipewire.service active
-sddm.service active
-ufw.service active
-wireplumber.service active
+simple-custom-arch-session.target active
+simple-custom-arch-waybar.service active
+simple-custom-arch-hyprpaper.service active
+simple-custom-arch-hypridle.service active
+simple-custom-arch-cliphist.service active
+dunst.service active
 EOF
-  printf 'full\n' > "$snapshot/network.txt"
-  printf 'Server Name: PulseAudio (on PipeWire)\nAudio Sinks Sources\n' > "$snapshot/audio.txt"
-  printf 'Powered: yes\n' > "$snapshot/bluetooth.txt"
   printf '[{"width":1366,"height":768}]\n' > "$snapshot/session.txt"
+  : > "$snapshot/configerrors.txt"
 
   printf '%s\n' "$snapshot"
 }
@@ -160,64 +125,49 @@ run_system_check() {
 }
 
 fixture="$(new_repository_fixture)"
-expect_pass 'isolated repository fixture' run_repository_fixture "$fixture"
+expect_pass 'complete dependency repository' run_repository_check "$fixture"
 
 fixture="$(new_repository_fixture)"
 sed -i '/^waybar$/d' "$fixture/packages/official.txt"
-expect_fail_containing 'missing status bar' 'waybar' run_repository_check "$fixture"
+expect_fail_containing 'missing status bar dependency' 'waybar' run_repository_check "$fixture"
 
 fixture="$(new_repository_fixture)"
-printf 'base\n' >> "$fixture/packages/official.txt"
-expect_fail_containing 'duplicate desired entry' 'official.txt' run_repository_check "$fixture"
-
-fixture="$(new_repository_fixture)"
-{
-  sed -n '2p' "$fixture/packages/official.txt"
-  sed -n '1p;3,$p' "$fixture/packages/official.txt"
-} > "$fixture/packages/official.unsorted"
-mv -- "$fixture/packages/official.unsorted" "$fixture/packages/official.txt"
-expect_fail_containing 'unsorted desired entries' 'official.txt' run_repository_check "$fixture"
+printf 'adwaita-cursors\n' >> "$fixture/packages/official.txt"
+expect_fail_containing 'duplicate dependency' 'official.txt' run_repository_check "$fixture"
 
 fixture="$(new_repository_fixture)"
 printf 'zz-test-package\n' >> "$fixture/packages/official.txt"
-expect_fail_containing 'undocumented desired entry' 'zz-test-package' run_repository_check "$fixture"
+expect_fail_containing 'undocumented dependency' 'zz-test-package' run_repository_check "$fixture"
 
 snapshot="$(new_system_snapshot)"
-expect_pass 'complete controlled system snapshot' run_system_check "$snapshot"
+expect_pass 'complete controlled desktop snapshot' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
-printf 'unexpected-orphan\n' > "$snapshot/orphans.txt"
-expect_pass 'reported orphan is not removed' run_system_check "$snapshot"
+printf '\n\n' > "$snapshot/configerrors.txt"
+expect_pass 'whitespace-only Hyprland response' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
-printf 'vim\n' >> "$snapshot/installed-all.txt"
-expect_pass 'installed package outside the desired manifest is preserved' run_system_check "$snapshot"
-
-snapshot="$(new_system_snapshot)"
-sed -i '/pcrlogin@omega/d' "$snapshot/failed-system.txt"
-expect_fail_containing 'one login TPM failure' 'system failed units' run_system_check "$snapshot"
-
-snapshot="$(new_system_snapshot)"
-printf 'systemd-pcrlogin@third.service loaded failed failed\n' >> "$snapshot/failed-system.txt"
-expect_fail_containing 'three login TPM failures' 'system failed units' run_system_check "$snapshot"
-
-snapshot="$(new_system_snapshot)"
-printf 'example.service loaded failed failed\n' >> "$snapshot/failed-system.txt"
-expect_fail_containing 'unrelated system failure' 'example.service' run_system_check "$snapshot"
+sed -i '/^brightnessctl$/d' "$snapshot/installed-all.txt"
+expect_fail_containing 'missing installed dependency' 'brightnessctl' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
 sed -i '/^playerctl$/d' "$snapshot/commands.txt"
-expect_fail_containing 'missing required command' 'playerctl' run_system_check "$snapshot"
+expect_fail_containing 'missing command' 'playerctl' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
-sed -i '/^brightnessctl$/d' "$snapshot/official-explicit.txt" "$snapshot/installed-all.txt"
-expect_fail_containing 'missing desired package' 'brightnessctl' run_system_check "$snapshot"
+printf 'example.service loaded failed failed\n' > "$snapshot/failed-user.txt"
+expect_fail_containing 'failed user unit' 'user units' run_system_check "$snapshot"
+
+snapshot="$(new_system_snapshot)"
+sed -i 's/simple-custom-arch-waybar.service active/simple-custom-arch-waybar.service inactive/' "$snapshot/services.txt"
+expect_fail_containing 'inactive project service' 'simple-custom-arch-waybar.service' run_system_check "$snapshot"
+
+snapshot="$(new_system_snapshot)"
+printf 'line 1: invalid value\n' > "$snapshot/configerrors.txt"
+expect_fail_containing 'Hyprland configuration error' 'configuration errors' run_system_check "$snapshot"
 
 snapshot="$(new_system_snapshot)"
 : > "$snapshot/session.txt"
-expect_fail_containing \
-  'missing graphical session data' \
-  'session data unavailable' \
-  run_system_check "$snapshot"
+expect_fail_containing 'missing graphical session' 'session data unavailable' run_system_check "$snapshot"
 
-printf 'PASS: 10/10 Phase 1 verifier behaviors\n'
+printf 'PASS: 12/12 desktop verifier behaviors\n'

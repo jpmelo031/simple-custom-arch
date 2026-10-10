@@ -1,6 +1,6 @@
 # System Baseline
 
-This directory records sanitized observations of the current notebook. Baseline files describe what exists; package manifests under `packages/` describe the desired state.
+This directory records sanitized historical observations of the current notebook. Baseline files describe what was present at capture time; package manifests under `packages/` contain only the direct dependencies of the deployed desktop.
 
 ## Capture
 

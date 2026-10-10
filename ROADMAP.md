@@ -34,13 +34,13 @@ This roadmap turns the approved design into ordered, verifiable phases. Only one
 
 The user-approved reduced package scope is installed and verified. It deliberately excludes Steam, Java, a second kernel, boot configuration work, package cleanup, and optional diagnostics from the earlier draft.
 
-**Goal:** Define and validate the smallest dependable package set for the notebook.
+**Goal:** Define and validate the direct dependencies required by the deployed desktop.
 
 **Scope:**
 
-- Review official and foreign packages.
-- Define explicit official and AUR manifests with a documented role for each package.
-- Validate firmware, graphics, audio, network, fonts, and maintenance tools.
+- Review official and foreign desktop dependencies.
+- Define official and foreign manifests with a documented role for each direct dependency.
+- Validate the commands, fonts, audio controls, and desktop services used by the configuration.
 - Establish the safe manual update procedure.
 - Report redundant and orphaned packages without removing them.
 - Preserve the existing regular kernel and boot configuration.
@@ -49,8 +49,8 @@ The user-approved reduced package scope is installed and verified. It deliberate
 
 **Acceptance:**
 
-- Every explicit package has a known role.
-- Official and AUR manifests reproduce the intended package set.
+- Every dependency in the manifests has a known role.
+- Official and foreign manifests reproduce the direct theme dependency set.
 - Network, audio, and Intel graphics work.
 - Failed services are fixed or explicitly documented.
 - No package is removed without approval.

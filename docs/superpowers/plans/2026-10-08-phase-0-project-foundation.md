@@ -330,7 +330,7 @@ Create executable `tests/phase0-verify.sh`. It must build isolated fixtures unde
 
 1. A complete fixture passes.
 2. Removing `AGENTS.md` fails and names the missing file.
-3. Adding `/home/alice/private` and the current hostname to a baseline document fails the sensitive-data check.
+3. Adding a synthetic home-directory path and the current hostname to a baseline document fails the sensitive-data check.
 4. Replacing `official-explicit.txt` with unsorted or duplicate package names fails the ordering check.
 5. Replacing the preview with malformed XML fails the preview check.
 6. Running the real verifier from `/tmp` succeeds, proving root discovery is independent of the current directory.

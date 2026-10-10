@@ -119,6 +119,7 @@ required_files=(
   tests/install-desktop.sh
   tests/phase1-manifests.sh
   tests/phase1-verify.sh
+  tests/verify.sh
 )
 
 for relative_path in "${required_files[@]}"; do
@@ -139,7 +140,6 @@ required_directories=(
   config/kde
   config/kitty
   config/rofi
-  config/shell
   config/vscode
   config/waybar
   scripts/lib

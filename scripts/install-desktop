@@ -38,7 +38,7 @@ report() {
   printf '[%s] %s\n' "$1" "$2"
 }
 
-required_commands=(cmp cp date install ln mktemp readlink rg rsvg-convert)
+required_commands=(cmp cp date grep install ln mktemp readlink rsvg-convert)
 for command_name in "${required_commands[@]}"; do
   command -v -- "$command_name" >/dev/null 2>&1 || fail "missing command: $command_name"
 done
@@ -110,7 +110,7 @@ elif [[ -e "$wallpaper_destination" && ! -f "$wallpaper_destination" ]]; then
 fi
 
 needs_import=1
-if [[ -f "$hyprland_config" ]] && rg -Fqx -- "$hyprland_import" "$hyprland_config"; then
+if [[ -f "$hyprland_config" ]] && grep -Fqx -- "$hyprland_import" "$hyprland_config"; then
   needs_import=0
 fi
 

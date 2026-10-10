@@ -1,38 +1,54 @@
 # Project Scripts
 
-This directory contains focused Bash scripts that coordinate standard Arch Linux and desktop tools. A script is added only when its owning phase can define and test its complete behavior.
+All project scripts use Bash strict mode, discover the repository root dynamically, and keep runtime state outside Git.
 
-## Implemented
-
-- `verify` — run the read-only checks for the active repository and, by default, the current notebook.
-- `install-desktop` — add the project-owned desktop files without replacing existing configuration directories.
-- `apply-theme` — back up and apply the desktop-wide dark, icon, and cursor preferences.
-
-Use either mode from any working directory:
+## `install-desktop`
 
 ```bash
-./scripts/verify
-./scripts/verify --root PATH
 ./scripts/install-desktop --dry-run
 ./scripts/install-desktop --apply
+```
+
+The deployer preflights every managed destination before changing anything. It creates individual symbolic links, renders the wallpaper, and appends one idempotent `require("majula")` line to the existing generated Hyprland configuration.
+
+Apply mode creates a timestamped backup before changing an existing Hyprland file. Correct links are reused, while unrelated files, directories, and broken links stop the whole deployment before partial changes occur.
+
+The script requires Bash, standard Arch base utilities, GNU grep, and `rsvg-convert` from `librsvg`.
+
+## `apply-theme`
+
+```bash
 ./scripts/apply-theme --dry-run
 ./scripts/apply-theme --apply
 ```
 
-The no-argument mode validates required paths, manifests, package roles, sanitized baseline data, the Majula preview, and Git whitespace. It then captures a temporary read-only system snapshot and checks desired packages, reported orphans, desktop commands, documented failed units, essential services, network, audio, Bluetooth, and graphical-session data. It does not change files, update packages, restart services, or perform a power action.
+This script manages the desktop-wide dark preference, GTK theme, icon theme, cursor theme, and cursor size through `gsettings`. Apply mode records earlier values under the XDG state directory, verifies each write, and rolls back values already changed when a later write fails.
 
-The `--root PATH` mode performs repository checks only. It never queries the running computer, which makes it suitable for isolated fixtures and review before system changes. Temporary preview and system-snapshot files are removed when verification exits.
+## `verify`
 
-`install-desktop` links individual application files and user units, appends the Majula Lua module import when it is absent, and renders the project wallpaper. It creates a timestamped backup before changing an existing Hyprland file, stops on unrelated destinations, and is safe to run again. Use `--dry-run` before `--apply`.
+```bash
+./scripts/verify --root "$PWD"
+./scripts/verify
+```
 
-`apply-theme` previews or applies the GNOME interface preferences consumed by GTK applications and portals. Apply mode records every changed value under the XDG state backup directory and restores earlier values if an operation fails.
+The `--root` mode checks repository structure, dependency manifests, documentation privacy, SVG validity and rendering, palette coverage, and Git whitespace. It never queries the running system.
 
-`lib/phase1-verify.sh` captures and validates the package and live-system contracts used by `verify`.
+The no-argument mode runs the same repository checks, then captures a temporary local snapshot and verifies:
 
-## Planned Responsibilities
+- all direct theme dependencies are installed;
+- every command referenced by configuration or keybindings is available;
+- project user units and Dunst are active;
+- no user unit is failed;
+- the Hyprland session is available and reports no configuration errors.
 
-- `install` — coordinate future full-system bootstrap and restore behavior beyond the current additive desktop deployment.
-- `update-check` — perform the read-only startup check for official and foreign updates.
-- `update-system` — show the update summary, perform a complete upgrade after confirmation, verify the result, and gate power actions.
+The temporary snapshot is removed on exit and is never committed.
 
-Future executables will be introduced by their owning phase with tests and documentation.
+## Session Helpers
+
+| Script | Installed command | Responsibility |
+|---|---|---|
+| `session/clipboard-menu` | `simple-custom-arch-clipboard-menu` | Select and restore clipboard history through Rofi. |
+| `session/screenshot` | `simple-custom-arch-screenshot` | Capture a full screen or selected area and copy it to the clipboard. |
+| `session/session-menu` | `simple-custom-arch-session-menu` | Offer lock, logout, and cancel actions. |
+
+No script performs an automatic restart, shutdown, suspend, package installation, or package removal.

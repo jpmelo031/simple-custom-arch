@@ -26,73 +26,36 @@ validate_manifest() {
 }
 
 cat > "$tmp_dir/official.expected" <<'EOF'
-base
-base-devel
-bluez
-bluez-utils
+adwaita-cursors
+breeze-icons
 brightnessctl
 cliphist
 dolphin
 dunst
-efibootmgr
-git
+glib2
 grim
-gst-plugin-pipewire
-htop
 hypridle
 hyprland
 hyprlock
 hyprpaper
-intel-media-driver
-intel-ucode
 kitty
-libpulse
-libva-intel-driver
-libvpl
-limine
-linux
-linux-firmware
-mkinitcpio
-nano
-neovim
+librsvg
 network-manager-applet
-networkmanager
 noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
-pipewire
-pipewire-alsa
-pipewire-jack
 pipewire-pulse
 playerctl
-polkit-kde-agent
-qt5-wayland
 qt6-wayland
 rofi
-sddm
 slurp
-smartmontools
-sudo
-ttf-dejavu
-ttf-liberation
-ufw
 uwsm
-vpl-gpu-rt
-vulkan-intel
 waybar
-wget
 wireplumber
 wl-clipboard
-wpa_supplicant
-xdg-desktop-portal-hyprland
 xdg-user-dirs
-xdg-utils
-zram-generator
 EOF
 
 cat > "$tmp_dir/aur.expected" <<'EOF'
 visual-studio-code-bin
-yay
 zen-browser-bin
 EOF
 
@@ -101,11 +64,11 @@ cp "$repo_root/packages/aur.txt" "$tmp_dir/aur.txt"
 
 parse_manifest "$tmp_dir/official.txt" > "$tmp_dir/official.actual"
 cmp -s "$tmp_dir/official.expected" "$tmp_dir/official.actual" ||
-  fail 'official manifest does not match the approved Phase 1 package set'
+  fail 'official manifest does not match the direct theme dependency set'
 
 parse_manifest "$tmp_dir/aur.txt" > "$tmp_dir/aur.actual"
 cmp -s "$tmp_dir/aur.expected" "$tmp_dir/aur.actual" ||
-  fail 'foreign manifest does not match the reviewed package set'
+  fail 'foreign manifest does not match the reviewed application set'
 
 {
   printf '# Test comment\n\n'
@@ -136,11 +99,12 @@ while IFS= read -r package; do
 done < <(cat "$tmp_dir/official.expected" "$tmp_dir/aur.expected")
 
 for package in \
-  github-cli jre21-openjdk lib32-mesa lib32-vulkan-intel libva-utils \
-  linux-lts mesa-utils pacman-contrib prismlauncher steam vulkan-tools; do
+  base-devel bluez efibootmgr intel-ucode jre21-openjdk lib32-mesa \
+  lib32-vulkan-intel limine linux linux-lts mkinitcpio prismlauncher steam \
+  ufw vulkan-intel yay zram-generator; do
   if cat "$tmp_dir/official.actual" "$tmp_dir/aur.actual" | rg -qx -- "$package"; then
     fail "$package is outside the approved additive desktop scope"
   fi
 done
 
-printf 'PASS: Phase 1 package manifest contract\n'
+printf 'PASS: theme dependency manifest contract\n'

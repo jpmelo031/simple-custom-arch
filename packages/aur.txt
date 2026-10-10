@@ -1,3 +1,2 @@
 visual-studio-code-bin
-yay
 zen-browser-bin

@@ -15,6 +15,5 @@ This directory contains versioned sources for the additive desktop configuration
 | `dunst/` | Desktop notification behavior and appearance |
 | `waybar/` | Status bar modules, layout, and styling |
 | `vscode/` | Reproducible editor settings |
-| `shell/` | Interactive shell configuration shared by project-managed sessions |
 
 The generated `~/.config/hypr/hyprland.lua` remains the primary configuration. Deployment backs it up and appends one `require("majula")` statement. An existing unrelated destination causes deployment to stop instead of replacing it.
