@@ -83,7 +83,7 @@ The media bindings remain available when the session is locked where the action 
 
 ### Waybar
 
-Use a 28-pixel top bar with workspaces and the active window on the left, the clock in the center, and audio plus the application tray on the right. Do not show battery, network, Bluetooth, backlight, CPU, memory, session, or power modules.
+Use a 28-pixel top bar with workspaces and the active window on the left, the clock in the center, and audio plus the application tray on the right. Do not show battery, network, Bluetooth, backlight, CPU, memory, session, or power modules. Override the legacy `nm-applet` bitmap through the local Hicolor theme with a clean Wi-Fi glyph in the Majula text color while preserving the applet menu.
 
 ### Rofi
 

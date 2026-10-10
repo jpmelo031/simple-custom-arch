@@ -48,6 +48,8 @@ links=(
   'config/hypr/hypridle.conf|.config/hypr/hypridle.conf'
   'config/hypr/hyprlock.conf|.config/hypr/hyprlock.conf'
   'config/hypr/hyprpaper.conf|.config/hypr/hyprpaper.conf'
+  'config/icons/hicolor/index.theme|.local/share/icons/hicolor/index.theme'
+  'config/icons/hicolor/22x22/apps/nm-signal-100.svg|.local/share/icons/hicolor/22x22/apps/nm-signal-100.svg'
   'config/waybar/config.jsonc|.config/waybar/config.jsonc'
   'config/waybar/style.css|.config/waybar/style.css'
   'config/rofi/config.rasi|.config/rofi/config.rasi'

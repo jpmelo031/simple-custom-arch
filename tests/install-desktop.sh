@@ -48,6 +48,8 @@ managed_paths=(
   .config/hypr/hypridle.conf
   .config/hypr/hyprlock.conf
   .config/hypr/hyprpaper.conf
+  .local/share/icons/hicolor/index.theme
+  .local/share/icons/hicolor/22x22/apps/nm-signal-100.svg
   .config/waybar/config.jsonc
   .config/waybar/style.css
   .config/rofi/config.rasi

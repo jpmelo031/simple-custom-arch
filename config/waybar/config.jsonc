@@ -25,7 +25,7 @@
     "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
   },
   "tray": {
-    "icon-size": 14,
+    "icon-size": 16,
     "spacing": 6
   }
 }

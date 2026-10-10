@@ -5,6 +5,7 @@ This directory contains versioned sources for the additive desktop configuration
 | Directory | Responsibility |
 |---|---|
 | `hypr/` | Additive Hyprland appearance and bindings, lock, idle, wallpaper, and wallpaper source |
+| `icons/` | Local icon-theme overrides for project-owned desktop styling |
 | `kitty/` | Kitty terminal behavior and appearance |
 | `rofi/` | Application launcher and update-choice interface |
 | `dunst/` | Desktop notification behavior and appearance |

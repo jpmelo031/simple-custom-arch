@@ -305,6 +305,8 @@ Keep every commit local. Report the backup directory, installed package set, act
 ### Task 6: Simplify Waybar
 
 **Files:**
+- Create: `config/icons/hicolor/index.theme`
+- Create: `config/icons/hicolor/22x22/apps/nm-signal-100.svg`
 - Modify: `config/waybar/config.jsonc`
 - Modify: `config/waybar/style.css`
 - Modify: `scripts/install-desktop`
@@ -313,5 +315,6 @@ Keep every commit local. Report the backup directory, installed package set, act
 
 - [x] Remove the network, Bluetooth, backlight, CPU, memory, session, and power modules from Waybar.
 - [x] Keep only audio and the application tray on the right side.
+- [x] Replace the `nm-applet` bitmap with a Majula Wi-Fi icon through a local Hicolor override.
 - [x] Remove the unused power-menu deployment path and its test fixture.
 - [x] Run repository tests, restart Waybar, and verify the live bar.

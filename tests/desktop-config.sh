@@ -15,6 +15,8 @@ required_files=(
   config/hypr/hyprlock.conf
   config/hypr/hyprpaper.conf
   config/hypr/assets/majula-wallpaper.svg
+  config/icons/hicolor/index.theme
+  config/icons/hicolor/22x22/apps/nm-signal-100.svg
   config/waybar/config.jsonc
   config/waybar/style.css
   config/rofi/config.rasi
@@ -55,7 +57,9 @@ rg -q '"height"[[:space:]]*:[[:space:]]*28' \
 if rg -qi 'battery' "$project_root/config/waybar/config.jsonc"; then
   fail 'Waybar must not configure a battery module'
 fi
-for removed_module in network bluetooth backlight cpu memory custom/session custom/power; do
+for removed_module in \
+  '"network":' '"bluetooth":' '"backlight":' '"cpu":' '"memory":' \
+  '"custom/session":' '"custom/power":'; do
   if rg -Fq -- "$removed_module" "$project_root/config/waybar/config.jsonc"; then
     fail "Waybar must not configure $removed_module"
   fi
@@ -63,6 +67,9 @@ done
 rg -Fq -- '"modules-right": ["pulseaudio", "tray"]' \
   "$project_root/config/waybar/config.jsonc" ||
   fail 'Waybar right modules must contain only audio and tray'
+rg -Fqi -- '#DDD6C6' \
+  "$project_root/config/icons/hicolor/22x22/apps/nm-signal-100.svg" ||
+  fail 'Network tray icon must use the Majula text color'
 
 workspace_codes=('1] = 87' '2] = 88' '3] = 89' '4] = 83' '5] = 84' '6] = 85' '7] = 79' '8] = 80' '9] = 81')
 for mapping in "${workspace_codes[@]}"; do
@@ -111,5 +118,7 @@ python -m json.tool "$project_root/config/vscode/settings.json" >/dev/null ||
   fail 'VS Code settings must be valid JSON'
 xmllint --noout "$project_root/config/hypr/assets/majula-wallpaper.svg" ||
   fail 'wallpaper must be valid SVG'
+xmllint --noout "$project_root/config/icons/hicolor/22x22/apps/nm-signal-100.svg" ||
+  fail 'network tray icon must be valid SVG'
 
 printf 'PASS: additive desktop configuration contract\n'

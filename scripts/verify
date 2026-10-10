@@ -78,6 +78,8 @@ required_files=(
   config/hypr/hyprlock.conf
   config/hypr/hyprpaper.conf
   config/hypr/majula.lua
+  config/icons/hicolor/index.theme
+  config/icons/hicolor/22x22/apps/nm-signal-100.svg
   config/kitty/kitty.conf
   config/rofi/config.rasi
   config/rofi/majula.rasi
@@ -121,6 +123,7 @@ done
 required_directories=(
   config/dunst
   config/hypr
+  config/icons
   config/kitty
   config/rofi
   config/shell
