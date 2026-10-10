@@ -1,14 +1,27 @@
 configuration {
-    modi: "drun,run,window";
+    modes: "drun,window,run,filebrowser";
     show-icons: true;
     icon-theme: "breeze-dark";
     display-drun: "Apps";
-    display-run: "Run";
     display-window: "Windows";
-    drun-display-format: "{name}";
+    display-run: "Commands";
+    display-filebrowser: "Files";
+    drun-display-format: "{name}  <span alpha='55%'>{generic}</span>";
+    drun-match-fields: "name,generic,categories,keywords";
+    drun-show-actions: true;
     matching: "fuzzy";
+    case-smart: true;
+    normalize-match: true;
     sort: true;
+    sidebar-mode: true;
+    cycle: true;
+    max-history-size: 50;
     terminal: "kitty";
+
+    filebrowser {
+        directories-first: true;
+        sorting-method: "name";
+    }
 }
 
 @theme "majula"

@@ -15,8 +15,15 @@ required_files=(
   config/hypr/hyprlock.conf
   config/hypr/hyprpaper.conf
   config/hypr/assets/majula-wallpaper.svg
+  config/environment.d/90-simple-custom-arch-theme.conf
+  config/gtk-3.0/settings.ini
+  config/gtk-3.0/gtk.css
+  config/gtk-4.0/settings.ini
+  config/gtk-4.0/gtk.css
   config/icons/hicolor/index.theme
   config/icons/hicolor/22x22/apps/nm-signal-100.svg
+  config/kde/kdeglobals
+  config/kde/Majula.colors
   config/waybar/config.jsonc
   config/waybar/style.css
   config/rofi/config.rasi
@@ -27,6 +34,7 @@ required_files=(
   scripts/session/clipboard-menu
   scripts/session/session-menu
   scripts/session/screenshot
+  scripts/apply-theme
   systemd/user/simple-custom-arch-session.target
   systemd/user/simple-custom-arch-waybar.service
   systemd/user/simple-custom-arch-hyprpaper.service
@@ -37,6 +45,47 @@ required_files=(
 for relative in "${required_files[@]}"; do
   [[ -f "$project_root/$relative" ]] || fail "missing $relative"
 done
+
+for settings_file in \
+  "$project_root/config/gtk-3.0/settings.ini" \
+  "$project_root/config/gtk-4.0/settings.ini"; do
+  rg -Fq -- 'gtk-application-prefer-dark-theme=true' "$settings_file" ||
+    fail "${settings_file#"$project_root/"} must prefer dark applications"
+  rg -Fq -- 'gtk-icon-theme-name=breeze-dark' "$settings_file" ||
+    fail "${settings_file#"$project_root/"} must use Breeze Dark icons"
+done
+
+for gtk_css in \
+  "$project_root/config/gtk-3.0/gtk.css" \
+  "$project_root/config/gtk-4.0/gtk.css"; do
+  for color in 0E1114 171C20 20272C 465056 DDD6C6 D1A35C E0783E C06452; do
+    rg -Fqi -- "#$color" "$gtk_css" ||
+      fail "${gtk_css#"$project_root/"} is missing Majula color #$color"
+  done
+done
+
+rg -Fq -- 'ColorScheme=Majula' "$project_root/config/kde/kdeglobals" ||
+  fail 'KDE applications must use the Majula color scheme'
+rg -Fq -- 'Theme=breeze-dark' "$project_root/config/kde/kdeglobals" ||
+  fail 'KDE applications must use Breeze Dark icons'
+rg -Fq -- 'Name=Majula' "$project_root/config/kde/Majula.colors" ||
+  fail 'Majula KDE color scheme must be named Majula'
+rg -Fq -- 'QT_STYLE_OVERRIDE=Fusion' \
+  "$project_root/config/environment.d/90-simple-custom-arch-theme.conf" ||
+  fail 'Qt applications must use the installed Fusion style'
+rg -Fq -- 'QT_QPA_PLATFORMTHEME=gtk3' \
+  "$project_root/config/environment.d/90-simple-custom-arch-theme.conf" ||
+  fail 'Qt applications must inherit the GTK dark palette'
+
+rg -Fq -- 'modes: "drun,window,run,filebrowser"' \
+  "$project_root/config/rofi/config.rasi" ||
+  fail 'Rofi must expose application, window, command, and file modes'
+rg -Fq -- 'drun-show-actions: true' "$project_root/config/rofi/config.rasi" ||
+  fail 'Rofi must expose desktop application actions'
+rg -Fq -- 'sidebar-mode: true' "$project_root/config/rofi/config.rasi" ||
+  fail 'Rofi must show mode navigation'
+rg -Fq -- 'background-color: @background;' "$project_root/config/rofi/majula.rasi" ||
+  fail 'Rofi must set an explicit dark root background'
 
 palette=(
   0E1114 171C20 20272C 465056 DDD6C6 A39B8C
@@ -70,6 +119,9 @@ rg -Fq -- '"modules-right": ["pulseaudio", "tray"]' \
 rg -Fqi -- '#DDD6C6' \
   "$project_root/config/icons/hicolor/22x22/apps/nm-signal-100.svg" ||
   fail 'Network tray icon must use the Majula text color'
+rg -Fq -- 'Directories=22x22/apps,scalable/apps' \
+  "$project_root/config/icons/hicolor/index.theme" ||
+  fail 'Local Hicolor overrides must retain scalable application icons'
 
 workspace_codes=('1] = 87' '2] = 88' '3] = 89' '4] = 83' '5] = 84' '6] = 85' '7] = 79' '8] = 80' '9] = 81')
 for mapping in "${workspace_codes[@]}"; do
@@ -80,6 +132,8 @@ rg -Fq -- 'mainMod .. " + code:" .. code' "$project_root/config/hypr/majula.lua"
   fail 'workspace bindings must use physical keypad codes'
 rg -Fq -- 'mainMod .. " + SHIFT + code:" .. code' "$project_root/config/hypr/majula.lua" ||
   fail 'workspace move bindings must use physical keypad codes'
+rg -Fq -- 'mainMod .. " + code:90"' "$project_root/config/hypr/majula.lua" ||
+  fail 'Rofi must be available on Super plus keypad 0'
 
 for binding in \
   'ALT + code:80' 'ALT + code:88' \
@@ -116,6 +170,7 @@ rg -Fq 'Wants=dunst.service' \
 
 python -m json.tool "$project_root/config/vscode/settings.json" >/dev/null ||
   fail 'VS Code settings must be valid JSON'
+bash -n "$project_root/scripts/apply-theme" || fail 'theme settings script must be valid Bash'
 xmllint --noout "$project_root/config/hypr/assets/majula-wallpaper.svg" ||
   fail 'wallpaper must be valid SVG'
 xmllint --noout "$project_root/config/icons/hicolor/22x22/apps/nm-signal-100.svg" ||

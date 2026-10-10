@@ -43,6 +43,8 @@ System-wide font sizes remain unchanged. Applications should hide redundant nati
 | Kitty | `background` canvas, `text` output, `muted` prompts, and semantic colors for update results. |
 | Dunst | `elevated` notification, `info` status marker, `text` title, and `muted` details. |
 | VS Code | `background` editor, `surface` chrome and sidebar, `elevated` active tab, and restrained semantic syntax colors. |
+| GTK 3/4 | `surface` windows, `background` views, `elevated` controls, `accent` selection, and `border` separators. |
+| Qt/KDE | The same window, view, control, selection, and semantic mappings through the Majula color scheme. |
 | Updater | `info` for checks, `ember` for progress, `success` for completion, and `danger` plus a symbol for failure. |
 
 ## Preview

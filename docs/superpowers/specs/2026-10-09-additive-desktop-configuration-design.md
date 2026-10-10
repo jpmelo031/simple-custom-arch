@@ -85,9 +85,13 @@ The media bindings remain available when the session is locked where the action 
 
 Use a 28-pixel top bar with workspaces and the active window on the left, the clock in the center, and audio plus the application tray on the right. Do not show battery, network, Bluetooth, backlight, CPU, memory, session, or power modules. Override the legacy `nm-applet` bitmap through the local Hicolor theme with a clean Wi-Fi glyph in the Majula text color while preserving the applet menu.
 
+### System Theme
+
+Use installed toolkit engines instead of adding a theme package. GTK 3 and GTK 4 prefer dark Adwaita and receive restrained Majula named-color overrides. Qt and KDE applications use the installed GTK platform bridge, the built-in Fusion widget style, Breeze Dark icons, and a Majula KDE color scheme. The desktop preference layer selects dark appearance, Breeze Dark icons, and the Adwaita cursor. Apply preference changes through a dedicated idempotent script that previews changes, records earlier values under the XDG state backup directory, verifies every write, and restores applied values after an error.
+
 ### Rofi
 
-Configure a compact application launcher using the Majula palette. Add project scripts for clipboard selection and session controls without changing Rofi's installed binaries.
+Configure a compact dark launcher using the Majula palette with explicit backgrounds for every visible widget. Provide application, window, command, and file modes with visible mode tabs, fuzzy matching, application actions, and keyboard mode cycling. Keep the existing clipboard and session menus, and add `Super + keypad 0` as an accessible launcher entry point without replacing existing bindings.
 
 ### Kitty, Dunst, and VS Code
 

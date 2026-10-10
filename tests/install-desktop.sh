@@ -48,8 +48,15 @@ managed_paths=(
   .config/hypr/hypridle.conf
   .config/hypr/hyprlock.conf
   .config/hypr/hyprpaper.conf
+  .config/environment.d/90-simple-custom-arch-theme.conf
+  .config/gtk-3.0/settings.ini
+  .config/gtk-3.0/gtk.css
+  .config/gtk-4.0/settings.ini
+  .config/gtk-4.0/gtk.css
   .local/share/icons/hicolor/index.theme
   .local/share/icons/hicolor/22x22/apps/nm-signal-100.svg
+  .config/kdeglobals
+  .local/share/color-schemes/Majula.colors
   .config/waybar/config.jsonc
   .config/waybar/style.css
   .config/rofi/config.rasi
@@ -60,6 +67,7 @@ managed_paths=(
   .local/bin/simple-custom-arch-clipboard-menu
   .local/bin/simple-custom-arch-session-menu
   .local/bin/simple-custom-arch-screenshot
+  .local/bin/simple-custom-arch-apply-theme
   .config/systemd/user/simple-custom-arch-session.target
   .config/systemd/user/simple-custom-arch-waybar.service
   .config/systemd/user/simple-custom-arch-hyprpaper.service

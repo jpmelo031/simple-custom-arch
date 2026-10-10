@@ -4,10 +4,14 @@ This directory contains versioned sources for the additive desktop configuration
 
 | Directory | Responsibility |
 |---|---|
+| `environment.d/` | Session-wide toolkit and cursor environment |
+| `gtk-3.0/` | GTK 3 dark preference and Majula color overrides |
+| `gtk-4.0/` | GTK 4 dark preference and Majula color overrides |
 | `hypr/` | Additive Hyprland appearance and bindings, lock, idle, wallpaper, and wallpaper source |
 | `icons/` | Local icon-theme overrides for project-owned desktop styling |
+| `kde/` | Qt/KDE color scheme, widget style, and icon preference |
 | `kitty/` | Kitty terminal behavior and appearance |
-| `rofi/` | Application launcher and update-choice interface |
+| `rofi/` | Application, window, command, file, clipboard, and session menus |
 | `dunst/` | Desktop notification behavior and appearance |
 | `waybar/` | Status bar modules, layout, and styling |
 | `vscode/` | Reproducible editor settings |

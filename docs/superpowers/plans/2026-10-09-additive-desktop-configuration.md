@@ -318,3 +318,29 @@ Keep every commit local. Report the backup directory, installed package set, act
 - [x] Replace the `nm-applet` bitmap with a Majula Wi-Fi icon through a local Hicolor override.
 - [x] Remove the unused power-menu deployment path and its test fixture.
 - [x] Run repository tests, restart Waybar, and verify the live bar.
+
+### Task 7: Extend the Majula Theme Across Desktop Toolkits
+
+**Files:**
+- Create: `config/environment.d/90-simple-custom-arch-theme.conf`
+- Create: `config/gtk-3.0/settings.ini`
+- Create: `config/gtk-3.0/gtk.css`
+- Create: `config/gtk-4.0/settings.ini`
+- Create: `config/gtk-4.0/gtk.css`
+- Create: `config/kde/kdeglobals`
+- Create: `config/kde/Majula.colors`
+- Create: `scripts/apply-theme`
+- Create: `tests/apply-theme.sh`
+- Modify: `config/hypr/majula.lua`
+- Modify: `config/rofi/config.rasi`
+- Modify: `config/rofi/majula.rasi`
+- Modify: `scripts/install-desktop`
+- Modify: `tests/desktop-config.sh`
+- Modify: `tests/install-desktop.sh`
+
+- [x] Apply the dark Majula palette to GTK 3, GTK 4, Qt, and KDE applications using installed engines.
+- [x] Add backed-up desktop preference deployment for dark appearance, icons, and cursor settings.
+- [x] Give Rofi explicit dark widget backgrounds and application, window, command, and file modes.
+- [x] Add application actions, visible mode navigation, fuzzy matching, and `Super + keypad 0` access.
+- [x] Deploy the new sources, apply the preferences, reload Hyprland, and verify Rofi and Dolphin live.
+- [x] Run the full repository and live-system verification.

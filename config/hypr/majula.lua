@@ -2,6 +2,10 @@
 
 local mainMod = "SUPER"
 
+hl.env("QT_QPA_PLATFORMTHEME", "gtk3")
+hl.env("QT_STYLE_OVERRIDE", "Fusion")
+hl.env("XCURSOR_THEME", "Adwaita")
+
 hl.config({
     general = {
         gaps_in = 4,
@@ -47,6 +51,7 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("simple-custom-arch-clipboard
 hl.bind("PRINT", hl.dsp.exec_cmd("simple-custom-arch-screenshot full"))
 hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("simple-custom-arch-screenshot area"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("simple-custom-arch-session-menu"))
+hl.bind(mainMod .. " + code:90", hl.dsp.exec_cmd("rofi -show drun"))
 
 -- Physical XKB keypad codes keep these bindings independent of Num Lock.
 local workspaceKeycodes = {

@@ -73,6 +73,11 @@ required_files=(
   ROADMAP.md
   config/README.md
   config/dunst/dunstrc
+  config/environment.d/90-simple-custom-arch-theme.conf
+  config/gtk-3.0/gtk.css
+  config/gtk-3.0/settings.ini
+  config/gtk-4.0/gtk.css
+  config/gtk-4.0/settings.ini
   config/hypr/assets/majula-wallpaper.svg
   config/hypr/hypridle.conf
   config/hypr/hyprlock.conf
@@ -80,6 +85,8 @@ required_files=(
   config/hypr/majula.lua
   config/icons/hicolor/index.theme
   config/icons/hicolor/22x22/apps/nm-signal-100.svg
+  config/kde/kdeglobals
+  config/kde/Majula.colors
   config/kitty/kitty.conf
   config/rofi/config.rasi
   config/rofi/majula.rasi
@@ -103,10 +110,12 @@ required_files=(
   packages/official.txt
   scripts/README.md
   scripts/install-desktop
+  scripts/apply-theme
   scripts/lib/phase1-verify.sh
   scripts/verify
   tests/phase0-verify.sh
   tests/desktop-config.sh
+  tests/apply-theme.sh
   tests/install-desktop.sh
   tests/phase1-manifests.sh
   tests/phase1-verify.sh
@@ -122,8 +131,12 @@ done
 
 required_directories=(
   config/dunst
+  config/environment.d
+  config/gtk-3.0
+  config/gtk-4.0
   config/hypr
   config/icons
+  config/kde
   config/kitty
   config/rofi
   config/shell
