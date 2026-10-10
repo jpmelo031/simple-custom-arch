@@ -83,11 +83,11 @@ The media bindings remain available when the session is locked where the action 
 
 ### Waybar
 
-Use a 28-pixel top bar with workspaces and the active window on the left, the clock in the center, and audio, tray, and power controls on the right. Do not show battery, network, Bluetooth, backlight, CPU, memory, or session modules. The power button opens a Rofi menu for shutdown or restart and requires a second confirmation before calling the selected systemd action.
+Use a 28-pixel top bar with workspaces and the active window on the left, the clock in the center, and audio plus the application tray on the right. Do not show battery, network, Bluetooth, backlight, CPU, memory, session, or power modules.
 
 ### Rofi
 
-Configure a compact application launcher using the Majula palette. Add project scripts for clipboard selection, session controls, and confirmed power actions without changing Rofi's installed binaries.
+Configure a compact application launcher using the Majula palette. Add project scripts for clipboard selection and session controls without changing Rofi's installed binaries.
 
 ### Kitty, Dunst, and VS Code
 
@@ -122,7 +122,7 @@ Live verification must prove:
 - Hyprland reports no configuration error after reload.
 - The new user units are enabled and active in the graphical session.
 - Waybar, Dunst, Hyprpaper, Hypridle, and clipboard history are running once.
-- Rofi, Kitty, VS Code, lock, screenshots, brightness, volume, media, keypad workspace bindings, and the confirmed power menu have valid commands.
+- Rofi, Kitty, VS Code, lock, screenshots, brightness, volume, media, and keypad workspace bindings have valid commands.
 - No boot file or boot configuration changed as part of this work.
 
 ## Acceptance Criteria

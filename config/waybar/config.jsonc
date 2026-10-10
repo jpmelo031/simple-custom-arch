@@ -5,7 +5,7 @@
   "spacing": 4,
   "modules-left": ["hyprland/workspaces", "hyprland/window"],
   "modules-center": ["clock"],
-  "modules-right": ["pulseaudio", "tray", "custom/power"],
+  "modules-right": ["pulseaudio", "tray"],
   "hyprland/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
@@ -27,10 +27,5 @@
   "tray": {
     "icon-size": 14,
     "spacing": 6
-  },
-  "custom/power": {
-    "format": "POWER",
-    "tooltip": false,
-    "on-click": "simple-custom-arch-power-menu"
   }
 }

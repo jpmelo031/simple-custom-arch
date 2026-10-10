@@ -56,7 +56,6 @@ links=(
   'config/dunst/dunstrc|.config/dunst/dunstrc'
   'config/vscode/settings.json|.config/Code/User/settings.json'
   'scripts/session/clipboard-menu|.local/bin/simple-custom-arch-clipboard-menu'
-  'scripts/session/power-menu|.local/bin/simple-custom-arch-power-menu'
   'scripts/session/session-menu|.local/bin/simple-custom-arch-session-menu'
   'scripts/session/screenshot|.local/bin/simple-custom-arch-screenshot'
   'systemd/user/simple-custom-arch-session.target|.config/systemd/user/simple-custom-arch-session.target'

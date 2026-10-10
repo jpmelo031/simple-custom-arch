@@ -33,8 +33,7 @@ window#waybar {
 #window,
 #clock,
 #pulseaudio,
-#tray,
-#custom-power {
+#tray {
   padding: 0 8px;
 }
 
@@ -48,9 +47,4 @@ window#waybar {
 
 #pulseaudio.muted {
   color: #C06452;
-}
-
-#custom-power {
-  color: #E0783E;
-  background: #20272C;
 }

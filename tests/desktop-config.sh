@@ -23,7 +23,6 @@ required_files=(
   config/dunst/dunstrc
   config/vscode/settings.json
   scripts/session/clipboard-menu
-  scripts/session/power-menu
   scripts/session/session-menu
   scripts/session/screenshot
   systemd/user/simple-custom-arch-session.target
@@ -56,16 +55,14 @@ rg -q '"height"[[:space:]]*:[[:space:]]*28' \
 if rg -qi 'battery' "$project_root/config/waybar/config.jsonc"; then
   fail 'Waybar must not configure a battery module'
 fi
-for removed_module in network bluetooth backlight cpu memory custom/session; do
+for removed_module in network bluetooth backlight cpu memory custom/session custom/power; do
   if rg -Fq -- "$removed_module" "$project_root/config/waybar/config.jsonc"; then
     fail "Waybar must not configure $removed_module"
   fi
 done
-rg -Fq -- '"modules-right": ["pulseaudio", "tray", "custom/power"]' \
+rg -Fq -- '"modules-right": ["pulseaudio", "tray"]' \
   "$project_root/config/waybar/config.jsonc" ||
-  fail 'Waybar right modules must contain only audio, tray, and power'
-rg -Fq -- 'simple-custom-arch-power-menu' "$project_root/config/waybar/config.jsonc" ||
-  fail 'Waybar power button must invoke the project power menu'
+  fail 'Waybar right modules must contain only audio and tray'
 
 workspace_codes=('1] = 87' '2] = 88' '3] = 89' '4] = 83' '5] = 84' '6] = 85' '7] = 79' '8] = 80' '9] = 81')
 for mapping in "${workspace_codes[@]}"; do
@@ -86,22 +83,9 @@ for binding in \
 done
 
 if rg -ni '(systemctl[[:space:]]+(suspend|hibernate|reboot|poweroff)|loginctl[[:space:]]+(suspend|hibernate|reboot|poweroff)|shutdown([[:space:]]|$)|reboot([[:space:]]|$))' \
-  "$project_root/config" \
-  "$project_root/scripts/session/clipboard-menu" \
-  "$project_root/scripts/session/session-menu" \
-  "$project_root/scripts/session/screenshot" \
-  "$project_root/systemd/user"; then
+  "$project_root/config" "$project_root/scripts/session" "$project_root/systemd/user"; then
   fail 'desktop configuration must not contain automatic power actions'
 fi
-
-for action in 'systemctl poweroff' 'systemctl reboot'; do
-  rg -Fq -- "$action" "$project_root/scripts/session/power-menu" ||
-    fail "power menu must provide $action"
-done
-rg -Fq -- "confirm_action 'Shut Down'" "$project_root/scripts/session/power-menu" ||
-  fail 'power menu must confirm shutdown'
-rg -Fq -- "confirm_action 'Restart'" "$project_root/scripts/session/power-menu" ||
-  fail 'power menu must confirm restart'
 
 for script in "$project_root"/scripts/session/*; do
   [[ -x "$script" ]] || fail "${script#"$project_root/"} must be executable"

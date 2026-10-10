@@ -106,7 +106,6 @@ required_files=(
   tests/phase0-verify.sh
   tests/desktop-config.sh
   tests/install-desktop.sh
-  tests/power-menu.sh
   tests/phase1-manifests.sh
   tests/phase1-verify.sh
 )
