@@ -1,6 +1,6 @@
 # Additive Desktop Configuration Design
 
-**Date:** 2026-10-09  
+**Date:** 2026-10-09
 **Status:** Approved for implementation
 
 ## Purpose
