@@ -58,7 +58,7 @@ No personal browser profile, account data, credentials, or extension state is ma
 
 The additions use:
 
-- Four-pixel inner and outer gaps.
+- Six-pixel inner and outer gaps.
 - A two-pixel focused border in `ember` and a one-pixel inactive border in `border`.
 - Conservative rounding, one-pass blur no larger than four pixels, and animations shorter than 300 milliseconds.
 - Brazilian keyboard layout and the existing monitor auto-detection.
