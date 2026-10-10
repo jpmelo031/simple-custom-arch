@@ -37,7 +37,7 @@ for heading in   '## Dependencies'   '## Installation'   '## Keybindings'   '## 
   require_text "$readme" "$heading"
 done
 
-for binding in   'Super + keypad 0'   'Super + keypad 1…9'   'Super + Shift + keypad 1…9'   'Alt + keypad 8'   'Alt + keypad 6'   'Alt + keypad 5'   'Alt + keypad 0'   'Alt + keypad 9'   'Super + B'   'Super + Shift + C'   'Super + L'   'Super + Shift + V'   'Super + Alt + S'   'Super + Shift + E'; do
+for binding in   'Super + keypad 0'   'Super + keypad 1…9'   'Super + Shift + keypad 1…9'   'Alt + keypad 8'   'Alt + keypad 6'   'Alt + keypad 5'   'Alt + keypad 0'   'Alt + keypad 9'   'Alt + keypad 1'   'Alt + keypad 3'   'Super + B'   'Super + Shift + C'   'Super + L'   'Super + Shift + V'   'Super + Alt + S'   'Super + Shift + E'; do
   require_text "$readme" "$binding"
 done
 
@@ -48,6 +48,8 @@ require_text "$theme" '| Tiled window gap | `6 px`'
 require_text "$theme" 'at 84% opacity'
 require_text "$desktop_spec" 'Six-pixel inner and outer gaps.'
 require_text "$desktop_spec" '84% background opacity'
+require_text "$desktop_spec" '| `Alt + keypad 1` | Capture the full screen |'
+require_text "$desktop_spec" '| `Alt + keypad 3` | Select and capture an area |'
 require_text "$desktop_plan" '**Implementation status:** Complete'
 require_text "$agents" 'Completed phases: **Phase 0 through Phase 4**.'
 require_text "$roadmap" '### Phase 4 — Majula Visual System — Complete'

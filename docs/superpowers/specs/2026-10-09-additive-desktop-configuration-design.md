@@ -78,6 +78,8 @@ The existing application and window-management bindings remain in place. New bin
 | `Alt + keypad 5` | Toggle output mute |
 | `Alt + keypad 0` | Play or pause media |
 | `Alt + keypad 9` / `Alt + keypad 7` | Next / previous media item |
+| `Alt + keypad 1` | Capture the full screen |
+| `Alt + keypad 3` | Select and capture an area |
 
 The media bindings remain available when the session is locked where the action is safe. Existing XF86 media bindings also remain unchanged.
 
@@ -135,7 +137,7 @@ Live verification must prove:
 
 - The desktop starts with the new functional components and Majula appearance.
 - Existing configuration remains recoverable and is extended rather than replaced.
-- The numeric keypad provides workspace, brightness, volume, and media controls.
+- The numeric keypad provides workspace, brightness, volume, media, and screenshot controls.
 - No action depends on `F2`, `F5`, top-row `5`, or top-row `6`.
 - Only the minimal approved packages are newly requested.
 - Steam and additional kernels remain absent from the requested transaction.

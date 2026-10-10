@@ -96,6 +96,8 @@ Existing generated Hyprland bindings remain available. This module adds:
 | `Alt + keypad 5` | Toggle output mute | `wpctl` |
 | `Alt + keypad 0` | Play or pause media | `playerctl` |
 | `Alt + keypad 9` / `Alt + keypad 7` | Next / previous media item | `playerctl` |
+| `Alt + keypad 1` | Capture the full screen | Grim |
+| `Alt + keypad 3` | Select and capture an area | Slurp and Grim |
 | `Super + B` | Open Zen Browser | `zen-browser` |
 | `Super + Shift + C` | Open VS Code | `code` |
 | `Super + L` | Lock the session | `loginctl lock-session` |

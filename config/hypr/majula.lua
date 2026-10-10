@@ -50,6 +50,8 @@ hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("loginctl lock-session"))
 hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("simple-custom-arch-clipboard-menu"))
 hl.bind("PRINT", hl.dsp.exec_cmd("simple-custom-arch-screenshot full"))
 hl.bind(mainMod .. " + ALT + S", hl.dsp.exec_cmd("simple-custom-arch-screenshot area"))
+hl.bind("ALT + code:87", hl.dsp.exec_cmd("simple-custom-arch-screenshot full"))
+hl.bind("ALT + code:89", hl.dsp.exec_cmd("simple-custom-arch-screenshot area"))
 hl.bind(mainMod .. " + SHIFT + E", hl.dsp.exec_cmd("simple-custom-arch-session-menu"))
 hl.bind(mainMod .. " + code:90", hl.dsp.exec_cmd("rofi -show drun"))
 

@@ -143,10 +143,18 @@ done
 for binding in \
   'ALT + code:80' 'ALT + code:88' \
   'ALT + code:85' 'ALT + code:83' 'ALT + code:84' \
-  'ALT + code:90' 'ALT + code:81' 'ALT + code:79'; do
+  'ALT + code:90' 'ALT + code:81' 'ALT + code:79' \
+  'ALT + code:87' 'ALT + code:89'; do
   rg -Fq -- "$binding" "$project_root/config/hypr/majula.lua" ||
     fail "missing keypad control binding: $binding"
 done
+
+rg -Fq -- 'hl.bind("ALT + code:87", hl.dsp.exec_cmd("simple-custom-arch-screenshot full"))' \
+  "$project_root/config/hypr/majula.lua" ||
+  fail 'Alt plus keypad 1 must capture the full screen'
+rg -Fq -- 'hl.bind("ALT + code:89", hl.dsp.exec_cmd("simple-custom-arch-screenshot area"))' \
+  "$project_root/config/hypr/majula.lua" ||
+  fail 'Alt plus keypad 3 must capture a selected area'
 
 for command_name in \
   zen-browser code loginctl simple-custom-arch-clipboard-menu \

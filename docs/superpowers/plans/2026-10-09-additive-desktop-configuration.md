@@ -29,7 +29,7 @@
 
 - **Unexpected destination:** deployment must stop and name an unrelated file, directory, or broken link instead of replacing it; Task 3 tests every destination state.
 - **Repeated deployment:** a second apply must leave one Hyprland import, correct links, and no new backup; Task 3 tests idempotency.
-- **Num Lock state:** numeric-keypad actions must use physical XKB keycodes rather than keypad symbols; Task 2 checks all eighteen workspace binds and seven control positions.
+- **Num Lock state:** numeric-keypad actions must use physical XKB keycodes rather than keypad symbols; Task 2 checks all eighteen workspace binds and nine control positions.
 - **Session duplication:** project services must use unique names and one target, while live verification must reject multiple component processes; Tasks 2 and 5 cover static and live state.
 - **Package expansion:** the transaction request must contain only the approved packages, and no removal or boot path may enter the command; Tasks 1 and 4 verify the exact set.
 
